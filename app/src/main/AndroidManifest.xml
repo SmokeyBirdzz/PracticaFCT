@@ -13,6 +13,12 @@
         android:theme="@style/Theme.PracticaFCT"
         tools:targetApi="31">
         <activity
+            android:name=".PracticaDos"
+            android:exported="false" />
+        <activity
+            android:name=".PracticaUno"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
