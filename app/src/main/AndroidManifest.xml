@@ -13,10 +13,10 @@
         android:theme="@style/Theme.PracticaFCT"
         tools:targetApi="31">
         <activity
-            android:name=".PracticaDos"
+            android:name=".PantallaSmartSolar"
             android:exported="false" />
         <activity
-            android:name=".PracticaUno"
+            android:name=".ListadoFacturas"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

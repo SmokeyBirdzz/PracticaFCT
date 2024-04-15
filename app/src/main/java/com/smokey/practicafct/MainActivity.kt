@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -36,12 +34,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToPracticaUno() {
-        val intent = Intent(this, PracticaUno::class.java)
+        val intent = Intent(this, ListadoFacturas::class.java)
         startActivity(intent)
     }
 
     private fun navigateToPracticaDos() {
-        val intent = Intent(this, PracticaDos::class.java)
+        val intent = Intent(this, PantallaSmartSolar::class.java)
         startActivity(intent)
     }
 
