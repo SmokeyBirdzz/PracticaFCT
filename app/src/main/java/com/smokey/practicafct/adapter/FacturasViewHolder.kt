@@ -6,11 +6,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.smokey.practicafct.Facturas
 import com.smokey.practicafct.R
+import com.smokey.practicafct.databinding.ItemFacturaBinding
+
 class FacturasViewHolder(view: View):RecyclerView.ViewHolder(view) {
-    val tvFecha = view.findViewById<TextView>(R.id.tvFecha)
-    val tvPendiente = view.findViewById<TextView>(R.id.tvPendiente)
-    val tvMoney = view.findViewById<TextView>(R.id.tvMoney)
-    val clRecyclerFacturas = view.findViewById<ConstraintLayout>(R.id.clRecyclerFacturas)
+    val binding = ItemFacturaBinding.bind(view)
 
     fun setAlertDialog(){
 
@@ -26,10 +25,10 @@ class FacturasViewHolder(view: View):RecyclerView.ViewHolder(view) {
 
     }
     fun render(facturasModel:Facturas){
-        tvFecha.text = facturasModel.fecha
-        tvPendiente.text = facturasModel.pendiente
-        tvMoney.text = facturasModel.dinero
-        clRecyclerFacturas.setOnClickListener {
+        binding.tvFecha.text = facturasModel.fecha
+        binding.tvPendiente.text = facturasModel.pendiente
+        binding.tvMoney.text = facturasModel.dinero
+        binding.clRecyclerFacturas.setOnClickListener {
             setAlertDialog()
         }
 
