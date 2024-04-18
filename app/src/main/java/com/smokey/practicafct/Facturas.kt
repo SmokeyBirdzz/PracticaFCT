@@ -1,9 +1,9 @@
 package com.smokey.practicafct
 
-import android.widget.ImageButton
+import com.google.gson.annotations.SerializedName
 
 data class Facturas (
     val fecha: String,
-    val pendiente: String,
-    val dinero: String,
+    @SerializedName ("descEstado") val pendiente: String,
+   @SerializedName("importeOrdenacion") val dinero: Double,
 )

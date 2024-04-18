@@ -27,7 +27,7 @@ class FacturasViewHolder(view: View):RecyclerView.ViewHolder(view) {
     fun render(facturasModel:Facturas){
         binding.tvFecha.text = facturasModel.fecha
         binding.tvPendiente.text = facturasModel.pendiente
-        binding.tvMoney.text = facturasModel.dinero
+        binding.tvMoney.text = "${facturasModel.dinero} €"
         binding.clRecyclerFacturas.setOnClickListener {
             setAlertDialog()
         }
