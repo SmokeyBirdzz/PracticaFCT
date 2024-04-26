@@ -2,7 +2,7 @@ package com.smokey.practicafct.ui.model.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.smokey.practicafct.data.retrofit.response.Facturas
+import com.smokey.practicafct.data.retrofit.response.Invoices
 import com.smokey.practicafct.databinding.ItemFacturaBinding
 
 //Creamos una clase ViewHolder a la que le pasaremos una vista
@@ -27,7 +27,7 @@ class FacturasViewHolder(view: View):RecyclerView.ViewHolder(view) {
     //Método render en el que pintamos el contenido de la lista que hemos recibido
     //del Json mediante Retrofit , y lo sobreescribimos sobre los textView del item de nuestro
     //RecyclerView
-    fun render(facturasModel: Facturas){
+    fun render(facturasModel: Invoices){
         binding.tvFecha.text = facturasModel.fecha
         binding.tvPendiente.text = facturasModel.pendiente
         binding.tvMoney.text = "${facturasModel.dinero} €"

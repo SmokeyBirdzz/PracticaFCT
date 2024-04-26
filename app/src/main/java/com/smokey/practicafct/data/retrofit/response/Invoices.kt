@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 //Creamos la data class que estará contenida dentro de la Lista en la que guardamos la información
 //de la API, la cual luego pasaremos al RecyclerView
-data class Facturas (
+data class Invoices (
     val fecha: String,
     @SerializedName ("descEstado") val pendiente: String,
    @SerializedName("importeOrdenacion") val dinero: Double,

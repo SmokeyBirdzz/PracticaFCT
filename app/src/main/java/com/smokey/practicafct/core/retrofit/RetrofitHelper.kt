@@ -7,7 +7,7 @@ object RetrofitHelper {
 
     fun getRetrofit():Retrofit{
         return Retrofit.Builder()
-            .baseUrl("https://viewnextandroid4.wiremockapi.cloud/facturas/")
+            .baseUrl("https://viewnextandroid4.wiremockapi.cloud/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
