@@ -1,0 +1,17 @@
+package com.smokey.practicafct.data.room
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import retrofit2.http.Query
+
+@Dao
+interface InvoiceDAO {
+    @Query("SELECT * FROM invoice_table")
+    fun getAllInvoicesFromRoom(): List<InvoiceModelRoom>
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertInvoicesRoom(invoiceModelRoom: List<InvoiceModelRoom>)
+
+    @Query("DELETE FROM invoice_table")
+    fun deleteAllInvoicesFromRoom()
+}
