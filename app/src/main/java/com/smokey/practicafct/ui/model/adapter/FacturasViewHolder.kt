@@ -2,7 +2,7 @@ package com.smokey.practicafct.ui.model.adapter
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.smokey.practicafct.data.retrofit.response.Invoices
+import com.smokey.practicafct.data.room.InvoiceModelRoom
 import com.smokey.practicafct.databinding.ItemFacturaBinding
 
 //Creamos una clase ViewHolder a la que le pasaremos una vista
@@ -27,14 +27,14 @@ class FacturasViewHolder(view: View):RecyclerView.ViewHolder(view) {
     //Método render en el que pintamos el contenido de la lista que hemos recibido
     //del Json mediante Retrofit , y lo sobreescribimos sobre los textView del item de nuestro
     //RecyclerView
-    fun render(facturasModel: Invoices){
+    fun render(facturasModel: InvoiceModelRoom){
         binding.tvFecha.text = facturasModel.fecha
-        binding.tvPendiente.text = facturasModel.pendiente
-        binding.tvMoney.text = "${facturasModel.dinero} €"
+        binding.tvPendiente.text = facturasModel.descEstado
+        binding.tvMoney.text = "${facturasModel.importeOrdenacion} €"
         //Llamamos al método del pop-up en el caso de que el usuario clicke en la celda
         binding.clRecyclerFacturas.setOnClickListener {
             setAlertDialog()
         }
+        }
 
     }
-}

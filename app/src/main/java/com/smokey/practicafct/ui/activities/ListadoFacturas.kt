@@ -1,25 +1,19 @@
 package com.smokey.practicafct.ui.activities
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.smokey.practicafct.data.retrofit.response.Invoices
-import com.smokey.practicafct.FacturasProvider
-import com.smokey.practicafct.R
+import com.smokey.practicafct.MyApplication
 import com.smokey.practicafct.core.retrofit.RetrofitHelper
-import com.smokey.practicafct.data.retrofit.APIService
 import com.smokey.practicafct.data.retrofit.FacturasService
+import com.smokey.practicafct.data.room.InvoiceModelRoom
 import com.smokey.practicafct.databinding.ActivityListadoFacturasBinding
 import com.smokey.practicafct.ui.model.adapter.FacturasAdapter
 import com.smokey.practicafct.ui.viewmodel.InvoiceViewmodel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 
 class ListadoFacturas : AppCompatActivity() {
@@ -35,6 +29,7 @@ class ListadoFacturas : AppCompatActivity() {
         binding = ActivityListadoFacturasBinding.inflate(layoutInflater)
         enableEdgeToEdge()
         setContentView(binding.root)
+        MyApplication()
 
 
         viewmodel.filteredInvoicesLiveData.observe(this, Observer { invoices ->
@@ -49,42 +44,10 @@ class ListadoFacturas : AppCompatActivity() {
        // searchFacturas()
     }
 
-   private fun InitRecyclerView (invoices: List<Invoices>) {
+   private fun InitRecyclerView (invoices: List<InvoiceModelRoom>) {
        binding.rvFacturas.layoutManager = LinearLayoutManager(this)
        facturasAdapter = FacturasAdapter(invoices)
        binding.rvFacturas.adapter = facturasAdapter
    }
-
-
-
-
-
-    //Creamos la conexión mediante Retrofit a la URL de la API
-//    private fun getRetrofit(): Retrofit{
-//        return FacturasService.retrofitBuilder
-//    }
-
-    //Creamos el método con corrutinas para que coja el contenido del Json y lo pinte en
-    //el item del RecyclerView
-//     fun searchFacturas(){
-//
-//        CoroutineScope(Dispatchers.IO).launch {
-//            val service = retrofit.create(APIService::class.java)
-//            //Creamos la respuesta, llamando al método que tenemos en el FacturasResponse
-//            val response = service.getInvoices()
-//            if (response.isSuccessful){
-//                //Si la respuesta sucede, pintamos el contenido de la respuesta en el cuerpo
-//                val facturasResponse = response.body()
-//                //Cogemos este contenido del body y lo pintamos en la nueva List<Facturas>
-//                //lamada val facturas
-//                val facturas = facturasResponse?.facturas ?: emptyList()
-//                runOnUiThread {
-//                    //Llamamos al método updateFacturas del adaptador
-//                   // updateAdapter(facturas)
-//                }
-//            }
-//
-//        }
-//    }
 
 }
