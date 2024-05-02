@@ -14,6 +14,7 @@ material = "1.11.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
 retrofit = "2.9.0"
+retromock = "1.1.1"
 roomKtx = "2.6.1"
 
 [libraries]
@@ -34,6 +35,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retromock = { module = "co.infinum:retromock", version.ref = "retromock" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

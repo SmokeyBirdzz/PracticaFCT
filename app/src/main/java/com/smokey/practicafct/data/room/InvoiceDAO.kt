@@ -8,10 +8,10 @@ import androidx.room.Query
 @Dao
 interface InvoiceDAO {
     @Query("SELECT * FROM invoice_table")
-    fun getAllInvoicesFromRoom(): List<InvoiceModelRoom>
+    fun getEveryInvoicesFromRoom(): List<InvoiceModelRoom>
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertInvoicesRoom(invoiceModelRoom: List<InvoiceModelRoom>)
 
     @Query("DELETE FROM invoice_table")
-    fun deleteAllInvoicesFromRoom()
+    fun deleteEveryInvoicesFromRoom()
 }

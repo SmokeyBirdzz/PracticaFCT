@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.smokey.practicafct.MyApplication
 import com.smokey.practicafct.data.InvoicesRepository
-import com.smokey.practicafct.data.retrofit.response.Invoices
 import com.smokey.practicafct.data.room.InvoiceModelRoom
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -27,13 +26,13 @@ class InvoiceViewmodel: ViewModel() {
 
     init {
         initRepository()
-        fetchInvoices()
+        searchInvoices()
     }
     fun initRepository(){
         repository = InvoicesRepository()
     }
 
-    private fun isInternetAvailable(): Boolean {
+    private fun isInternetReady(): Boolean {
         val gestorDeConectividad =
             MyApplication.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val network = gestorDeConectividad.activeNetwork
@@ -46,17 +45,17 @@ class InvoiceViewmodel: ViewModel() {
                 )
     }
 
-    fun fetchInvoices(){
+    fun searchInvoices(){
         viewModelScope.launch {
-            _filteredInvoicesLiveData.postValue(repository.getAllInvoicesFromRoom())
+            _filteredInvoicesLiveData.postValue(repository.getEveryInvoiceFromRoom())
             try {
-                if (isInternetAvailable()){
+                if (isInternetReady()){
                     when(useApi){
-                        true -> repository.fetchAndInsertInvoicesFromAPI()
+                        true -> repository.searchAndInsertInvoicesFromAPI()
                         //Por poner algo mientras
-                        false -> repository.fetchAndInsertInvoicesFromAPI()
+                        false -> repository.getInvoicesFromMock()
                     }
-                    invoices = repository.getAllInvoicesFromRoom()
+                    invoices = repository.getEveryInvoiceFromRoom()
                     _filteredInvoicesLiveData.postValue(invoices)
                 }
             }catch (e: Exception){

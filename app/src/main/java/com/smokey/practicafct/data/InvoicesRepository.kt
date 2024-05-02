@@ -1,8 +1,7 @@
 package com.smokey.practicafct.data
 
 import com.smokey.practicafct.data.retrofit.FacturasService
-import com.smokey.practicafct.data.retrofit.response.Invoices
-import com.smokey.practicafct.data.room.InvoiceDAO
+import com.smokey.practicafct.data.retrofit.response.InvoicesResponse
 import com.smokey.practicafct.data.room.InvoiceDatabase
 import com.smokey.practicafct.data.room.InvoiceModelRoom
 
@@ -15,14 +14,18 @@ suspend fun getInvoices(): List<InvoiceModelRoom>?{
 }
 
 
-    suspend fun insertInvoicesFromRoom(invoices: List<InvoiceModelRoom>){
+    suspend fun addInvoicesFromRoom(invoices: List<InvoiceModelRoom>){
         invoiceDao.insertInvoicesRoom(invoices)
     }
-    fun getAllInvoicesFromRoom(): List<InvoiceModelRoom>{
-        return  invoiceDao.getAllInvoicesFromRoom()
+    fun getEveryInvoiceFromRoom(): List<InvoiceModelRoom>{
+        return  invoiceDao.getEveryInvoicesFromRoom()
     }
 
-    suspend fun fetchAndInsertInvoicesFromAPI(){
+//    suspend fun getInvoicesFromMock() : List<InvoicesResponse>?
+//    {
+//        return api.getInvoicesFromMock()
+//    }
+    suspend fun searchAndInsertInvoicesFromAPI(){
         val invoicesFromAPI = getInvoices() ?: emptyList()
         val invoicesRoom = invoicesFromAPI.map { invoice ->
             InvoiceModelRoom(
@@ -31,7 +34,7 @@ suspend fun getInvoices(): List<InvoiceModelRoom>?{
                 fecha = invoice.fecha
             )
         }
-        insertInvoicesFromRoom(invoicesRoom)
+        addInvoicesFromRoom(invoicesRoom)
     }
 
 }
