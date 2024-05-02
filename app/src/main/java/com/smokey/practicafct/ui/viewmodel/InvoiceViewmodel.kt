@@ -53,7 +53,7 @@ class InvoiceViewmodel: ViewModel() {
                     when(useApi){
                         true -> repository.searchAndInsertInvoicesFromAPI()
                         //Por poner algo mientras
-                        false -> repository.getInvoicesFromMock()
+                        false -> repository.searchAndInsertInvoicesFromAPI()
                     }
                     invoices = repository.getEveryInvoiceFromRoom()
                     _filteredInvoicesLiveData.postValue(invoices)
