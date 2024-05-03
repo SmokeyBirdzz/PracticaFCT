@@ -35,29 +35,29 @@ class InvoiceViewmodel: ViewModel() {
     private fun isInternetReady(): Boolean {
         val gestorDeConectividad =
             MyApplication.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val network = gestorDeConectividad.activeNetwork
-            val capabilities = gestorDeConectividad.getNetworkCapabilities(network)
-
-        return capabilities != null && (
+        val network = gestorDeConectividad.activeNetwork
+        val capabilities = gestorDeConectividad.getNetworkCapabilities(network)
+        val isReady = capabilities != null && (
                 capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
-                capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET)
                 )
+        return isReady
     }
 
     fun searchInvoices(){
         viewModelScope.launch {
             _filteredInvoicesLiveData.postValue(repository.getEveryInvoiceFromRoom())
             try {
-                if (isInternetReady()){
-                    when(useApi){
-                        true -> repository.searchAndInsertInvoicesFromAPI()
-                        //Por poner algo mientras
-                        false -> repository.searchAndInsertInvoicesFromAPI()
-                    }
-                    invoices = repository.getEveryInvoiceFromRoom()
-                    _filteredInvoicesLiveData.postValue(invoices)
+                if (isInternetReady()) {
+                    // Si hay conexión a Internet, usar Retrofit
+                    repository.searchAndInsertInvoicesFromAPI()
+                } else {
+                    // Si no hay conexión a Internet, usar Retromock
+                    repository.searchAndInsertInvoicesFromRetromock()
                 }
+                _filteredInvoicesLiveData.postValue(repository.getEveryInvoiceFromRoom())
+
             }catch (e: Exception){
                 Log.d("Error", e.printStackTrace().toString())
             }

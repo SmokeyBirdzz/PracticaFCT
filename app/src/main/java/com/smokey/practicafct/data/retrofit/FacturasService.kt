@@ -13,24 +13,35 @@ class FacturasService {
     private val retromock = RetroMockHelper.getRetromock(retrofitBuilder)
 
      suspend fun getInvoices() : List<InvoiceModelRoom>?{
-            val response = retrofitBuilder.create(APIService::class.java).getInvoices()
-            val facturas = response.body()?.facturas ?: emptyList()
-            return facturas
+         try {
+             val response = retrofitBuilder.create(APIService::class.java).getInvoices()
+             if (response.isSuccessful) {
+                 val facturas = response.body()?.facturas ?: emptyList()
+                 return facturas
+             } else {
+                 return null
+             }
+         } catch (e: Exception) {
+             return null
+         }
     }
 
-//    suspend fun getInvoicesFromMock(): List<InvoicesResponse>? {
-//        val response = retromock.create(InvoiceRetromock::class.java).getInvoices()
-//        if (response.isSuccessful){
-//            val invoices =response.body()?.facturas
-//            if (invoices.isNullOrEmpty()){
-//                return emptyList()
-//            }else{
-//                return invoices
-//            }
-//        }else {
-//            Log.d("Fallo", response.toString())
-//            return null
-//        }
-//    }
+    suspend fun getInvoicesFromMock(): List<InvoiceModelRoom>? {
+        try {
+            val response = retromock.create(InvoiceRetromock::class.java).getInvoices()
+            if (response.isSuccessful) {
+                val invoices = response.body()?.facturas
+                if (invoices.isNullOrEmpty()) {
+                    return emptyList()
+                } else {
+                    return invoices
+                }
+            } else {
+                return null
+            }
+        } catch (e: Exception) {
+            return null
+        }
+    }
 
 }
