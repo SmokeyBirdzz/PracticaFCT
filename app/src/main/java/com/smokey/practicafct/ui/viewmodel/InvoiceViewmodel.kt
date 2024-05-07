@@ -11,17 +11,20 @@ import androidx.lifecycle.viewModelScope
 import com.smokey.practicafct.MyApplication
 import com.smokey.practicafct.data.InvoicesRepository
 import com.smokey.practicafct.data.room.InvoiceModelRoom
+import com.smokey.practicafct.databinding.ActivityListadoFacturasBinding
+import com.smokey.practicafct.ui.activities.ListadoFacturas
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class InvoiceViewmodel: ViewModel() {
 
-    private var useApi = false
-    private var invoices : List<InvoiceModelRoom> = emptyList()
     private lateinit var repository : InvoicesRepository
     private val _filteredInvoicesLiveData = MutableLiveData<List<InvoiceModelRoom>>()
+    var useRetrofitService = false
     val filteredInvoicesLiveData: LiveData<List<InvoiceModelRoom>>
         get() = _filteredInvoicesLiveData
+
+
 
 
     init {
@@ -50,8 +53,13 @@ class InvoiceViewmodel: ViewModel() {
             _filteredInvoicesLiveData.postValue(repository.getEveryInvoiceFromRoom())
             try {
                 if (isInternetReady()) {
-                    // Si hay conexión a Internet, usar Retrofit
-                    repository.searchAndInsertInvoicesFromAPI()
+                    if (useRetrofitService) {
+                        // Si hay conexión a Internet, usar Retrofit
+                        repository.searchAndInsertInvoicesFromRetromock()
+
+                    }else{
+                        repository.searchAndInsertInvoicesFromAPI()
+                    }
                 } else {
                     // Si no hay conexión a Internet, usar Retromock
                     repository.searchAndInsertInvoicesFromRetromock()

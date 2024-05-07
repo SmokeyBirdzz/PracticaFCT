@@ -28,6 +28,7 @@ class FacturasViewHolder(view: View):RecyclerView.ViewHolder(view) {
     //del Json mediante Retrofit , y lo sobreescribimos sobre los textView del item de nuestro
     //RecyclerView
     fun render(facturasModel: InvoiceModelRoom){
+
         binding.tvFecha.text = facturasModel.fecha
         binding.tvPendiente.text = facturasModel.descEstado
         binding.tvMoney.text = "${facturasModel.importeOrdenacion} €"

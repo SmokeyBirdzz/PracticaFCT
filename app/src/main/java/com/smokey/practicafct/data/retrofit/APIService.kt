@@ -1,8 +1,6 @@
 package com.smokey.practicafct.data.retrofit
 
 import co.infinum.retromock.meta.Mock
-import co.infinum.retromock.meta.MockBehavior
-import co.infinum.retromock.meta.MockCircular
 import co.infinum.retromock.meta.MockResponse
 import co.infinum.retromock.meta.MockResponses
 import com.smokey.practicafct.data.retrofit.response.InvoicesResponse

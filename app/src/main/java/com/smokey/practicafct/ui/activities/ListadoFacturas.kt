@@ -31,6 +31,11 @@ class ListadoFacturas : AppCompatActivity() {
         setContentView(binding.root)
         MyApplication()
 
+        binding.switchRetromock.setOnCheckedChangeListener{_,isChecked ->
+            viewmodel.useRetrofitService = isChecked
+            viewmodel.searchInvoices()
+        }
+
 
         viewmodel.filteredInvoicesLiveData.observe(this, Observer { invoices ->
             // Aquí va el código para manejar los cambios en los datos
