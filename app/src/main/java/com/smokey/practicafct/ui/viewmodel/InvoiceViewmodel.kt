@@ -16,22 +16,21 @@ import com.smokey.practicafct.ui.activities.ListadoFacturas
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
-class InvoiceViewmodel: ViewModel() {
+class InvoiceViewmodel : ViewModel() {
 
-    private lateinit var repository : InvoicesRepository
+    private lateinit var repository: InvoicesRepository
     private val _filteredInvoicesLiveData = MutableLiveData<List<InvoiceModelRoom>>()
     var useRetrofitService = false
     val filteredInvoicesLiveData: LiveData<List<InvoiceModelRoom>>
         get() = _filteredInvoicesLiveData
 
 
-
-
     init {
         initRepository()
         searchInvoices()
     }
-    fun initRepository(){
+
+    fun initRepository() {
         repository = InvoicesRepository()
     }
 
@@ -48,7 +47,7 @@ class InvoiceViewmodel: ViewModel() {
         return isReady
     }
 
-    fun searchInvoices(){
+    fun searchInvoices() {
         viewModelScope.launch {
             _filteredInvoicesLiveData.postValue(repository.getEveryInvoiceFromRoom())
             try {
@@ -56,17 +55,20 @@ class InvoiceViewmodel: ViewModel() {
                     if (useRetrofitService) {
                         // Si hay conexión a Internet, usar Retrofit
                         repository.searchAndInsertInvoicesFromRetromock()
+                        Log.d("Retromock", "Usando Retromock")
 
-                    }else{
+                    } else {
                         repository.searchAndInsertInvoicesFromAPI()
+                        Log.d("Retrofit", "Usando Retrofit")
                     }
                 } else {
                     // Si no hay conexión a Internet, usar Retromock
                     repository.searchAndInsertInvoicesFromRetromock()
+                    Log.d("Retromock", "Usando Retromock")
                 }
                 _filteredInvoicesLiveData.postValue(repository.getEveryInvoiceFromRoom())
 
-            }catch (e: Exception){
+            } catch (e: Exception) {
                 Log.d("Error", e.printStackTrace().toString())
             }
         }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentListadoFacturas">
+
+    <fragment
+        android:id="@+id/fragmentListadoFacturas"
+        android:name="FragmentListadoFacturas"
+        android:label="FragmentListadoFacturas" >
+        <action
+            android:id="@+id/action_fragmentListadoFacturas_to_fragmentFiltradoFacturas"
+            app:destination="@id/fragmentFiltradoFacturas" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentFiltradoFacturas"
+        android:name="com.smokey.practicafct.ui.fragments.FragmentFiltradoFacturas"
+        android:label="fragment_filtrado_facturas"
+        tools:layout="@layout/fragment_filtrado_facturas" />
+</navigation>

@@ -7,80 +7,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.ListadoFacturas">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/cl_listado_facturas_coordinator_toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Toolbar
-            android:id="@+id/toolBarFiltro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="26dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageButton
-                android:layout_width="22dp"
-                android:layout_height="14dp"
-                android:backgroundTint="@color/transparent"
-                android:src="@drawable/ic_arrow_left"
-                app:tint="@color/green" />
-
-            <TextView
-                android:id="@+id/tvConsumo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Consumo"
-                android:textColor="@color/green" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchRetromock"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_marginStart="85dp"
-                android:checked="false"
-                android:text="Retromock "
-
-                />
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginEnd="16dp"
-                android:backgroundTint="@color/transparent"
-                android:src="@drawable/ic_options" />
-
-
-        </Toolbar>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
-    <TextView
-        android:id="@+id/tvFacturasTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:text="Facturas"
-        android:textSize="32dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cl_listado_facturas_coordinator_toolbar" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvFacturas"
+    <fragment
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvFacturasTitle" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

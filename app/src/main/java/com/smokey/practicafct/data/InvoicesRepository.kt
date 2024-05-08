@@ -10,23 +10,24 @@ class InvoicesRepository {
     val api = FacturasService()
     val invoiceDao = InvoiceDatabase.getAppDBInstance().getInvoiceDao()
 
-suspend fun getInvoices(): List<InvoiceModelRoom>?{
-    return api.getInvoices()
-}
+    suspend fun getInvoices(): List<InvoiceModelRoom>? {
+        return api.getInvoices()
+    }
 
 
-    suspend fun addInvoicesFromRoom(invoices: List<InvoiceModelRoom>){
+    suspend fun addInvoicesFromRoom(invoices: List<InvoiceModelRoom>) {
         invoiceDao.insertInvoicesRoom(invoices)
     }
-    fun getEveryInvoiceFromRoom(): List<InvoiceModelRoom>{
-        return  invoiceDao.getEveryInvoicesFromRoom()
+
+    fun getEveryInvoiceFromRoom(): List<InvoiceModelRoom> {
+        return invoiceDao.getEveryInvoicesFromRoom()
     }
 
-    suspend fun getInvoicesFromMock() : List<InvoiceModelRoom>?
-    {
+    suspend fun getInvoicesFromMock(): List<InvoiceModelRoom>? {
         return api.getInvoicesFromMock()
     }
-    suspend fun searchAndInsertInvoicesFromAPI(){
+
+    suspend fun searchAndInsertInvoicesFromAPI() {
         // Borra el contenido anterior del Room antes de insertar nuevos datos
         invoiceDao.deleteEveryInvoicesFromRoom()
 
@@ -44,7 +45,7 @@ suspend fun getInvoices(): List<InvoiceModelRoom>?{
         addInvoicesFromRoom(invoicesRoom)
     }
 
-    suspend fun searchAndInsertInvoicesFromRetromock(){
+    suspend fun searchAndInsertInvoicesFromRetromock() {
         invoiceDao.deleteEveryInvoicesFromRoom() // Eliminar todas las facturas existentes
         val invoicesFromRetromock = getInvoicesFromMock() ?: emptyList()
         val invoicesRoom = invoicesFromRetromock.map { invoice ->
