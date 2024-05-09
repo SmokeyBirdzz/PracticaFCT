@@ -17,5 +17,9 @@
         android:id="@+id/fragmentFiltradoFacturas"
         android:name="com.smokey.practicafct.ui.fragments.FragmentFiltradoFacturas"
         android:label="fragment_filtrado_facturas"
-        tools:layout="@layout/fragment_filtrado_facturas" />
+        tools:layout="@layout/fragment_filtrado_facturas" >
+        <action
+            android:id="@+id/action_fragmentFiltradoFacturas_to_fragmentListadoFacturas"
+            app:destination="@id/fragmentListadoFacturas" />
+    </fragment>
 </navigation>
