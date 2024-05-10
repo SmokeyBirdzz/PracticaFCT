@@ -8,4 +8,5 @@
     <color name="transparent">#008BC34A</color>
     <color name="red">#E64949</color>
     <color name="ic_filter_button_background">#008BC34A</color>
+    <color name="my_light_primary">#95bb4e</color>
 </resources>

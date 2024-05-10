@@ -1,85 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.fragments.FragmentFiltradoFacturas">
 
     <ImageButton
         android:id="@+id/imageButtonCancel"
-        app:layout_constraintEnd_toEndOf="@+id/toolBarTitle"
-        app:layout_constraintBottom_toTopOf="@+id/toolBarTitle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/transparent"
-        android:layout_width="wrap_content"
         android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toTopOf="@+id/toolBarTitle"
+        app:layout_constraintEnd_toEndOf="@+id/toolBarTitle"
 
         />
 
-<Toolbar
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:id="@+id/toolBarTitle"
-    app:layout_constraintTop_toTopOf="parent"
-    android:layout_marginTop="64dp"
-    app:layout_constraintStart_toStartOf="parent"
-    android:contentInsetStart="16dp"
-    android:title="Filtrar Facturas"
-    android:titleTextAppearance="@style/BoldLargeTitleTextAppearance"
-    app:layout_constraintEnd_toEndOf="parent"/>
+    <Toolbar
+        android:id="@+id/toolBarTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="64dp"
+        android:contentInsetStart="16dp"
+        android:title="Filtrar Facturas"
+        android:titleTextAppearance="@style/BoldLargeTitleTextAppearance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textViewUnderTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textViewUnderTitle"
-        android:text="Con fecha de emisión"
         android:paddingLeft="15dp"
-        app:layout_constraintTop_toBottomOf="@+id/toolBarTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textStyle="bold"
+        android:text="Con fecha de emisión"
         android:textColor="@color/black"
-        />
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarTitle" />
 
     <LinearLayout
         android:id="@+id/linearDesdeHasta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewUnderTitle"
-        android:gravity="center" >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewUnderTitle">
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
                 android:id="@+id/textViewDesde"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/strongGrey"
-                android:layout_marginBottom="6dp"
-                android:text="Desde:"
-                android:paddingLeft="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="6dp"
+                android:paddingLeft="16dp"
+                android:text="Desde:"
+                android:textColor="@color/strongGrey"
 
                 />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnDesde"
+                style="@style/ButtonCustomStyle"
                 android:layout_width="160dp"
                 android:layout_height="40dp"
-                style="@style/ButtonCustomStyle"
-                android:textAllCaps="false"
+                android:layout_marginLeft="12dp"
                 android:paddingHorizontal="18dp"
                 android:text="día/mes/año"
-                android:layout_marginLeft="12dp"
-                />
+                android:textAllCaps="false" />
 
         </LinearLayout>
 
@@ -87,30 +84,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
                 android:id="@+id/textViewHasta"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Hasta:"
-                android:paddingLeft="5dp"
-                android:layout_marginBottom="6dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="6dp"
+                android:paddingLeft="5dp"
+                android:text="Hasta:"
                 android:textColor="@color/strongGrey"
 
                 />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnHasta"
-                android:layout_width="160dp"
                 style="@style/ButtonCustomStyle"
+                android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:paddingHorizontal="18dp"
-                android:textAllCaps="false"
                 android:text="día/mes/año"
-                />
+                android:textAllCaps="false" />
 
         </LinearLayout>
     </LinearLayout>
@@ -120,9 +115,168 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:background="#DDDDDD"
-        app:layout_constraintTop_toBottomOf="@+id/linearDesdeHasta"
+        app:layout_constraintTop_toBottomOf="@+id/linearDesdeHasta" />
+
+    <TextView
+        android:id="@+id/textViewPorImporte"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="16dp"
+        android:text="Por un importe"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view" />
+
+    <TextView
+        android:id="@+id/textViewSlider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:gravity="center"
+        android:text="0€  -  300€"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPorImporte" />
+
+    <TextView
+        android:id="@+id/tvSliderLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="0 €"
+        app:layout_constraintBottom_toTopOf="@+id/slider"
+        app:layout_constraintStart_toStartOf="@+id/slider" />
+
+    <TextView
+        android:id="@+id/tvSliderRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="0 €"
+        app:layout_constraintBottom_toTopOf="@+id/slider"
+        app:layout_constraintEnd_toEndOf="@+id/slider" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSlider"
+        tools:layout_editor_absoluteX="33dp" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#DDDDDD"
+        app:layout_constraintTop_toBottomOf="@+id/slider" />
+
+    <TextView
+        android:id="@+id/textViewPorEstado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="16dp"
+        android:paddingLeft="16dp"
+        android:text="Por estado"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/view2" />
+
+    <CheckBox
+        android:id="@+id/cBPagadas"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="8dp"
+        android:text="Pagadas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPorEstado"
+
+        />
+
+    <CheckBox
+        android:id="@+id/cBAnuladas"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:text="Anuladas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cBPagadas"
+
+        />
+
+    <CheckBox
+        android:id="@+id/cBCuotaFija"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:text="Cuota Fija"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cBAnuladas"
+
+        />
+
+    <CheckBox
+        android:id="@+id/cBPendientesDePago"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:text="Pendientes de pago"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cBCuotaFija"
+
+        />
+
+    <CheckBox
+        android:id="@+id/cBPlanDePago"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginStart="10dp"
+        android:text="Plan de pago"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cBPendientesDePago"
+
+        />
+
+    <Button
+        android:layout_width="200dp"
+        android:id="@+id/btnAplicar"
+        app:layout_constraintTop_toBottomOf="@+id/cBPlanDePago"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_height="wrap_content"
+        android:text="Aplicar"
+        />
+
+    <Button
+        android:layout_width="160dp"
+        android:id="@+id/btneliminarFiltros"
+        app:layout_constraintTop_toBottomOf="@+id/btnAplicar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:text="Eliminar filtros"
+        android:backgroundTint="@color/grey"
         />
 
 
