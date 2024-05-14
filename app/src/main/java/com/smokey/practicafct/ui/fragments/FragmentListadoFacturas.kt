@@ -20,6 +20,7 @@ class FragmentListadoFacturas : Fragment() {
     private lateinit var rvFacturas: RecyclerView
     private lateinit var binding: FragmentListadoFacturasBinding
     private val viewmodel: InvoiceViewmodel by viewModels()
+    private var maxAmount = 0.0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +53,12 @@ class FragmentListadoFacturas : Fragment() {
         switchRetromock.setOnCheckedChangeListener { _, isChecked ->
             viewmodel.useRetrofitService = isChecked
             viewmodel.searchInvoices()
+        }
+
+        viewmodel.filterLiveData.observe(viewLifecycleOwner){filter ->
+            if (filter != null){
+                viewmodel.verificarFiltros()
+            }
         }
 
     }

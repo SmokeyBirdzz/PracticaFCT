@@ -2,4 +2,6 @@
     <string name="app_name">PracticaFCT</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="diaMesAnno">Dia/Mes/Año</string>
+
 </resources>

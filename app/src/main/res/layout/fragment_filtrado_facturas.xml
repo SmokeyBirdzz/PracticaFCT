@@ -75,7 +75,7 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="12dp"
                 android:paddingHorizontal="18dp"
-                android:text="día/mes/año"
+                android:text="@string/diaMesAnno"
                 android:textAllCaps="false" />
 
         </LinearLayout>
@@ -104,7 +104,7 @@
                 android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:paddingHorizontal="18dp"
-                android:text="día/mes/año"
+                android:text="@string/diaMesAnno"
                 android:textAllCaps="false" />
 
         </LinearLayout>
@@ -139,7 +139,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
         android:gravity="center"
-        android:text="0€  -  300€"
+        android:text="0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPorImporte" />
@@ -269,7 +269,7 @@
 
     <Button
         android:layout_width="160dp"
-        android:id="@+id/btneliminarFiltros"
+        android:id="@+id/btnEliminarFiltros"
         app:layout_constraintTop_toBottomOf="@+id/btnAplicar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
