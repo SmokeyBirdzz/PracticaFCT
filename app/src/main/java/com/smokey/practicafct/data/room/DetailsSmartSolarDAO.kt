@@ -11,8 +11,8 @@ interface DetailsSmartSolarDAO {
     fun getDetailsFromRoom() : DetailsSmartSolarRoom
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertDetailsInRoom(DetailsSmartSolarRoom: DetailsSmartSolarRoom )
+    fun insertDetailsInRoom(detailsSmartSolarRoom: DetailsSmartSolarRoom )
 
     @Query("DELETE FROM detailsSmartSolar_table")
-    fun deleteEnergyDataFromRoom()
+    fun deleteDetailsFromRoom()
 }

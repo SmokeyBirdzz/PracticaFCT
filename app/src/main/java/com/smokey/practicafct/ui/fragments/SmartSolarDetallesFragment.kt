@@ -5,19 +5,35 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.smokey.practicafct.R
+import com.smokey.practicafct.databinding.FragmentSmartSolarDetallesBinding
+import com.smokey.practicafct.ui.viewmodel.DetailsSmartSolarViewmodel
+
 class SmartSolarDetallesFragment : Fragment() {
+
+    private lateinit var binding: FragmentSmartSolarDetallesBinding
+    private val viewModel: DetailsSmartSolarViewmodel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-        }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_smart_solar_detalles, container, false)
+       binding = FragmentSmartSolarDetallesBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewModel.energyDataLiveData.observe(viewLifecycleOwner){ energyData ->
+            binding.etCAU.setText(energyData.cau)
+            binding.etEstado.setText(energyData.estadoSolicitud)
+            binding.etTipo.setText(energyData.tipoAutoconsumo)
+            binding.etCompensacion.setText(energyData.compensacionExcedentes)
+            binding.etPotencia.setText(energyData.potenciaInstalacion)
+
+        }
     }
 }

@@ -26,8 +26,8 @@ class PantallaSmartSolar : AppCompatActivity() {
 
         binding.tableLayoutSmart.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.let {
-                    when (it.position) {
+                if (tab != null){
+                    when (tab.position) {
                         0 -> sustituirFragment(SmartSolarMiInstalacionFragment())
                         1 -> sustituirFragment(SmartSolarEnergiaFragment())
                         2 -> sustituirFragment(SmartSolarDetallesFragment())

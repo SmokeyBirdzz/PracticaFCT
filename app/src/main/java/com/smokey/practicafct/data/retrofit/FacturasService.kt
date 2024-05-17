@@ -3,8 +3,7 @@ package com.smokey.practicafct.data.retrofit
 import android.util.Log
 import com.smokey.practicafct.core.retrofit.RetrofitHelper
 import com.smokey.practicafct.core.retromock.RetroMockHelper
-import com.smokey.practicafct.data.retrofit.response.Invoices
-import com.smokey.practicafct.data.retrofit.response.InvoicesResponse
+import com.smokey.practicafct.data.retrofit.network.Detail
 import com.smokey.practicafct.data.room.InvoiceModelRoom
 
 class FacturasService {
@@ -40,6 +39,17 @@ class FacturasService {
                 return null
             }
         } catch (e: Exception) {
+            return null
+        }
+    }
+
+    suspend fun getDetailsSmartSolarFromRetromock(): Detail?{
+        val response = retromock.create(DetailsSmartSolarRetroMock::class.java).getDetailsSmartSolarFromMock()
+        if (response.isSuccessful && response.body() != null) {
+            val detailsData = response.body()
+            return detailsData
+        } else{
+            Log.d("DETAILS_TAB", "Ha fallado algo")
             return null
         }
     }

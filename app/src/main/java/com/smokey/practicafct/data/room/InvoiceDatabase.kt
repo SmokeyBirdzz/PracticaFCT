@@ -5,9 +5,10 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.smokey.practicafct.MyApplication
 
-@Database(entities = [InvoiceModelRoom::class], version = 1, exportSchema = false)
+@Database(entities = [InvoiceModelRoom::class, DetailsSmartSolarRoom::class], version = 1, exportSchema = false)
 abstract class InvoiceDatabase: RoomDatabase() {
     abstract fun getInvoiceDao(): InvoiceDAO
+    abstract fun getDetailsSmartSolarDAO(): DetailsSmartSolarDAO
     companion object{
         private var DB_INSTANCE: InvoiceDatabase? = null
         fun getAppDBInstance(): InvoiceDatabase{

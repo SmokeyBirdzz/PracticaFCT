@@ -1,14 +1,35 @@
 package com.smokey.practicafct.data
 
 import com.smokey.practicafct.data.retrofit.FacturasService
-import com.smokey.practicafct.data.retrofit.InvoiceRetromock
-import com.smokey.practicafct.data.retrofit.response.InvoicesResponse
+import com.smokey.practicafct.data.retrofit.network.Detail
+import com.smokey.practicafct.data.room.DetailsSmartSolarRoom
 import com.smokey.practicafct.data.room.InvoiceDatabase
 import com.smokey.practicafct.data.room.InvoiceModelRoom
 
 class InvoicesRepository {
     val api = FacturasService()
     val invoiceDao = InvoiceDatabase.getAppDBInstance().getInvoiceDao()
+    val detailsSmartSolarDAO = InvoiceDatabase.getAppDBInstance().getDetailsSmartSolarDAO()
+
+    suspend fun getDetailsSmartSolarFromRetromMock(): Detail? {
+        return api.getDetailsSmartSolarFromRetromock()
+    }
+
+    suspend fun insertDetailsSmartSolarInRoom(detailsSmartSolarRoom: DetailsSmartSolarRoom){
+        detailsSmartSolarDAO.insertDetailsInRoom(detailsSmartSolarRoom)
+    }
+
+    fun getDetailsSmartSolarFromRoom(): DetailsSmartSolarRoom{
+        return detailsSmartSolarDAO.getDetailsFromRoom()
+    }
+
+    suspend fun fetchAndInsertDetailsSmartSolarFromMock(){
+        val energyDetail = getDetailsSmartSolarFromRetromMock()
+        val energyDetailRoom = energyDetail?.asDetailsSmartSolarModelRoom()
+        if (energyDetailRoom != null){
+            insertDetailsSmartSolarInRoom(energyDetailRoom)
+        }
+    }
 
     suspend fun getInvoices(): List<InvoiceModelRoom>? {
         return api.getInvoices()
