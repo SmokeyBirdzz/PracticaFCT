@@ -2,6 +2,7 @@ package com.smokey.practicafct.ui.fragments
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toolbar
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.slider.Slider
@@ -19,15 +21,16 @@ import com.smokey.practicafct.constants.Constants
 import com.smokey.practicafct.core.network.toDateString
 import com.smokey.practicafct.databinding.FragmentFiltradoFacturasBinding
 import com.smokey.practicafct.ui.viewmodel.InvoiceViewmodel
+import com.smokey.practicafct.ui.viewmodel.SharedViewModel
 import java.time.LocalDate
 import java.util.Calendar
 import java.util.Locale
 
 class FragmentFiltradoFacturas : Fragment() {
 
-private lateinit var btnDesde : Button
-private lateinit var btnHasta : Button
-private lateinit var binding : FragmentFiltradoFacturasBinding
+    private lateinit var btnDesde: Button
+    private lateinit var btnHasta: Button
+    private lateinit var binding: FragmentFiltradoFacturasBinding
     private lateinit var textViewSlider: TextView
     private lateinit var tvSliderLeft: TextView
     private lateinit var tvSliderRight: TextView
@@ -37,7 +40,8 @@ private lateinit var binding : FragmentFiltradoFacturasBinding
     private lateinit var fixedPayment: CheckBox
     private lateinit var pendingPayment: CheckBox
     private lateinit var paymentPlan: CheckBox
-    private val viewModel : InvoiceViewmodel by viewModels()
+    private val viewModel: InvoiceViewmodel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +54,6 @@ private lateinit var binding : FragmentFiltradoFacturasBinding
         val toolBar = view.findViewById<Toolbar>(R.id.toolBarTitle)
         val cancelButton = view.findViewById<ImageButton>(R.id.imageButtonCancel)
 
-
         btnDesde = binding.btnDesde
         btnHasta = binding.btnHasta
         btnDesde.setOnClickListener { showDatePickerDesde(it) }
@@ -62,18 +65,12 @@ private lateinit var binding : FragmentFiltradoFacturasBinding
         loadFilters()
     }
 
-    private fun initComponents(){
-//        initCalendar()
+    private fun initComponents() {
         initSeekBar()
         initCheckBoxes()
         initApplyFiltersButton()
         initResetFilterButton()
     }
-
-//    private fun initCalendar(){
-//        showDatePickerDesde(binding.view)
-//        showDatePickerHasta(binding.view)
-//    }
 
     private fun initCheckBoxes() {
         paid = binding.cBPagadas
@@ -81,7 +78,6 @@ private lateinit var binding : FragmentFiltradoFacturasBinding
         fixedPayment = binding.cBCuotaFija
         pendingPayment = binding.cBPendientesDePago
         paymentPlan = binding.cBPlanDePago
-
     }
 
     private fun initResetFilterButton() {
@@ -90,13 +86,11 @@ private lateinit var binding : FragmentFiltradoFacturasBinding
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentFiltradoFacturasBinding.inflate(inflater,container,false)
+        binding = FragmentFiltradoFacturasBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -121,37 +115,36 @@ private lateinit var binding : FragmentFiltradoFacturasBinding
     }
 
     private fun showDatePickerDesde(view: View) {
-            val cal = Calendar.getInstance()
-            val datePickerDialog = DatePickerDialog(
-                requireContext(),
-                { _, year, month, dayOfMonth ->
-                    val selectedDate = "$dayOfMonth/${month + 1}/$year"
-                    btnDesde.text = selectedDate
-                },
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-            )
-            datePickerDialog.show()
-
+        val cal = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, year, month, dayOfMonth ->
+                val selectedDate = "$dayOfMonth/${month + 1}/$year"
+                btnDesde.text = selectedDate
+            },
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
     }
+
     fun showDatePickerHasta(view: View) {
-            val cal = Calendar.getInstance()
-            val datePickerDialog = DatePickerDialog(
-                requireContext(),
-                { _, year, month, dayOfMonth ->
-                    val selectedDate = "$dayOfMonth/${month + 1}/$year"
-                    btnHasta.text = selectedDate
-                },
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH)
-            )
-            datePickerDialog.show()
-
+        val cal = Calendar.getInstance()
+        val datePickerDialog = DatePickerDialog(
+            requireContext(),
+            { _, year, month, dayOfMonth ->
+                val selectedDate = "$dayOfMonth/${month + 1}/$year"
+                btnHasta.text = selectedDate
+            },
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
+        )
+        datePickerDialog.show()
     }
 
-    private fun initSeekBar(){
+    private fun initSeekBar() {
         textViewSlider = binding.textViewSlider
         tvSliderLeft = binding.tvSliderLeft
         tvSliderRight = binding.tvSliderRight
@@ -159,17 +152,18 @@ private lateinit var binding : FragmentFiltradoFacturasBinding
 
         tvSliderRight.text = "300€"
 
-        slider.valueFrom = 0f // Cambiar a un valor entero
-        slider.valueTo = 300f // Cambiar a un valor entero
+        slider.valueFrom = 0f
+        slider.valueTo = 300f
         slider.value = 0f
 
-        slider.addOnChangeListener { slider, _, _ ->
-            val value = slider.value.toInt() // Convertir el valor del slider a entero
-            textViewSlider.text = "$value" // Mostrar el valor entero en el TextView
+        slider.addOnChangeListener { _, _, _ ->
+            val value = slider.value.toInt()
+            textViewSlider.text = "$value"
         }
         tvSliderLeft.text = "0"
     }
-    private fun initApplyFiltersButton(){
+
+    private fun initApplyFiltersButton() {
         binding.btnAplicar.setOnClickListener {
             val maxValueSlider = binding.textViewSlider.text.toString().toDouble()
             val status = hashMapOf(
@@ -183,16 +177,20 @@ private lateinit var binding : FragmentFiltradoFacturasBinding
             val minDate: String = if (binding.btnDesde.text == getString(R.string.diaMesAnno))
                 LocalDate.ofEpochDay(0).toDateString("dd/MM/yyyy")
             else binding.btnDesde.text.toString()
-            val maxDate: String =
-                if (binding.btnHasta.text == getString(R.string.diaMesAnno)) LocalDate.now().toDateString("dd/MM/yyyy") else binding.btnHasta.text.toString()
+            val maxDate: String = if (binding.btnHasta.text == getString(R.string.diaMesAnno))
+                LocalDate.now().toDateString("dd/MM/yyyy")
+            else binding.btnHasta.text.toString()
 
-            viewModel.applyFilters(maxDate, minDate, maxValueSlider, status)
-            requireActivity().supportFragmentManager.popBackStack()
+            // Añadir logs para verificar los valores
+            Log.d("Filtros", "minDate: $minDate, maxDate: $maxDate, maxValueSlider: $maxValueSlider")
+            Log.d("Filtros", "status: $status")
 
+            sharedViewModel.setFilters(minDate, maxDate, maxValueSlider, status)
+            findNavController().navigate(R.id.action_fragmentFiltradoFacturas_to_fragmentListadoFacturas)
         }
     }
 
-    private fun resetFilters () {
+    private fun resetFilters() {
         binding.btnDesde.text = getString(R.string.diaMesAnno)
         binding.btnHasta.text = getString(R.string.diaMesAnno)
         binding.slider.value = viewModel.maxAmount.toFloat() + 1
@@ -202,5 +200,4 @@ private lateinit var binding : FragmentFiltradoFacturasBinding
         binding.cBPendientesDePago.isChecked = false
         binding.cBPlanDePago.isChecked = false
     }
-
 }

@@ -1,9 +1,9 @@
 package com.smokey.practicafct.ui.model.adapter
 
-class FilterVO (
+class Filters (
     var maxDate : String,
     var minDate : String,
     var maxValorSlider : Double,
-    var status : HashMap<String,Boolean>
+    var status : Map<String,Boolean>
 )
 

@@ -14,7 +14,7 @@ import com.smokey.practicafct.R
 import com.smokey.practicafct.constants.Constants
 import com.smokey.practicafct.data.InvoicesRepository
 import com.smokey.practicafct.data.room.InvoiceModelRoom
-import com.smokey.practicafct.ui.model.adapter.FilterVO
+import com.smokey.practicafct.ui.model.adapter.Filters
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.text.ParseException
@@ -35,8 +35,8 @@ class InvoiceViewmodel : ViewModel() {
     var maxAmount = 0.0f
         get() = _maxAmount
 
-    private var _filterLiveData = MutableLiveData<FilterVO>()
-    val filterLiveData: LiveData<FilterVO>
+    private var _filterLiveData = MutableLiveData<Filters>()
+    val filterLiveData: LiveData<Filters>
         get() = _filterLiveData
 
 
@@ -77,7 +77,7 @@ class InvoiceViewmodel : ViewModel() {
                 R.string.diaMesAnno
             ) && maxDate != getString(MyApplication.context, R.string.diaMesAnno))
         ) {
-            val filtro = FilterVO(maxDate, minDate, maxValueSlider, status)
+            val filtro = Filters(maxDate, minDate, maxValueSlider, status)
             _filterLiveData.postValue(filtro)
 
             // Aplicar los filtros y actualizar el LiveData con la lista filtrada
