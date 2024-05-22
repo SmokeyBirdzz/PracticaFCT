@@ -20,6 +20,7 @@ import com.smokey.practicafct.R
 import com.smokey.practicafct.constants.Constants
 import com.smokey.practicafct.core.network.toDateString
 import com.smokey.practicafct.databinding.FragmentFiltradoFacturasBinding
+import com.smokey.practicafct.ui.model.adapter.Filters
 import com.smokey.practicafct.ui.viewmodel.InvoiceViewmodel
 import com.smokey.practicafct.ui.viewmodel.SharedViewModel
 import java.time.LocalDate
@@ -98,7 +99,7 @@ class FragmentFiltradoFacturas : Fragment() {
         if (viewModel.filterLiveData.value != null) {
             binding.btnDesde.text = viewModel.filterLiveData.value?.minDate
             binding.btnHasta.text = viewModel.filterLiveData.value?.maxDate
-            binding.slider.value = viewModel.filterLiveData.value?.maxValorSlider?.toFloat()!!
+            binding.slider.value = viewModel.filterLiveData.value?.maxValueSlider?.toFloat()!!
             binding.slider.value.toInt()
             binding.cBPagadas.isChecked =
                 viewModel.filterLiveData.value?.status?.get(Constants.PAID_STRING) ?: false
@@ -107,8 +108,7 @@ class FragmentFiltradoFacturas : Fragment() {
             binding.cBCuotaFija.isChecked =
                 viewModel.filterLiveData.value?.status?.get(Constants.FIXED_PAYMENT_STRING) ?: false
             binding.cBPendientesDePago.isChecked =
-                viewModel.filterLiveData.value?.status?.get(Constants.PENDING_PAYMENT_STRING)
-                    ?: false
+                viewModel.filterLiveData.value?.status?.get(Constants.PENDING_PAYMENT_STRING) ?: false
             binding.cBPendientesDePago.isChecked =
                 viewModel.filterLiveData.value?.status?.get(Constants.PAYMENT_PLAN_STRING) ?: false
         }
@@ -156,7 +156,7 @@ class FragmentFiltradoFacturas : Fragment() {
         slider.valueTo = 300f
         slider.value = 0f
 
-        slider.addOnChangeListener { _, _, _ ->
+        slider.addOnChangeListener { slider, _, _ ->
             val value = slider.value.toInt()
             textViewSlider.text = "$value"
         }
@@ -177,16 +177,15 @@ class FragmentFiltradoFacturas : Fragment() {
             val minDate: String = if (binding.btnDesde.text == getString(R.string.diaMesAnno))
                 LocalDate.ofEpochDay(0).toDateString("dd/MM/yyyy")
             else binding.btnDesde.text.toString()
-            val maxDate: String = if (binding.btnHasta.text == getString(R.string.diaMesAnno))
-                LocalDate.now().toDateString("dd/MM/yyyy")
-            else binding.btnHasta.text.toString()
+            val maxDate: String =
+                if (binding.btnHasta.text == getString(R.string.diaMesAnno)) LocalDate.now().toDateString("dd/MM/yyyy") else binding.btnHasta.text.toString()
 
-            // Añadir logs para verificar los valores
             Log.d("Filtros", "minDate: $minDate, maxDate: $maxDate, maxValueSlider: $maxValueSlider")
             Log.d("Filtros", "status: $status")
 
-            sharedViewModel.setFilters(minDate, maxDate, maxValueSlider, status)
-            findNavController().navigate(R.id.action_fragmentFiltradoFacturas_to_fragmentListadoFacturas)
+            val filters = Filters(minDate, maxDate, maxValueSlider, status)
+            sharedViewModel.setFilters(filters)
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 

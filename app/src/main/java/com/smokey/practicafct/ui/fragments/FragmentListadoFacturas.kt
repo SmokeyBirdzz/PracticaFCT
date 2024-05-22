@@ -1,9 +1,14 @@
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageButton
+import android.widget.TextView
+import android.widget.Toolbar
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -11,9 +16,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.slider.Slider
 import com.smokey.practicafct.R
 import com.smokey.practicafct.constants.Constants
+import com.smokey.practicafct.core.network.toDateString
 import com.smokey.practicafct.data.room.InvoiceModelRoom
+import com.smokey.practicafct.databinding.FragmentFiltradoFacturasBinding
 import com.smokey.practicafct.databinding.FragmentListadoFacturasBinding
 import com.smokey.practicafct.ui.model.adapter.FacturasAdapter
 import com.smokey.practicafct.ui.model.adapter.Filters
@@ -21,6 +29,7 @@ import com.smokey.practicafct.ui.viewmodel.InvoiceViewmodel
 import com.smokey.practicafct.ui.viewmodel.SharedViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Calendar
 
 class FragmentListadoFacturas : Fragment() {
     private lateinit var facturasAdapter: FacturasAdapter
@@ -57,6 +66,7 @@ class FragmentListadoFacturas : Fragment() {
         // Observar cambios en los datos
         viewmodel.filteredInvoicesLiveData.observe(viewLifecycleOwner) { invoices ->
             originalList = invoices
+            Log.d("ListadoFacturas", "Original List Size: ${invoices.size}")
             facturasAdapter.updateFacturas(invoices)
         }
 
@@ -74,7 +84,10 @@ class FragmentListadoFacturas : Fragment() {
 
         // Observar los filtros y aplicar el filtrado
         sharedViewModel.filters.observe(viewLifecycleOwner) { filters ->
-            applyFilters(filters)
+            if (filters != null) {
+                Log.d("Filtros", "Recibidos: $filters")
+                viewmodel.applyFilters(filters.maxDate, filters.minDate, filters.maxValueSlider, filters.status)
+            }
         }
     }
 
@@ -89,7 +102,7 @@ class FragmentListadoFacturas : Fragment() {
                 entry.value && factura.descEstado == entry.key
             }
 
-            val result = factura.importeOrdenacion in 0.0..filters.maxValorSlider &&
+            val result = factura.importeOrdenacion in 0.0..filters.maxValueSlider &&
                     facturaDate in minDate..maxDate &&
                     matchesEstado
 

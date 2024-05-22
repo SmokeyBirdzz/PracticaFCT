@@ -39,7 +39,6 @@ class InvoiceViewmodel : ViewModel() {
     val filterLiveData: LiveData<Filters>
         get() = _filterLiveData
 
-
     init {
         initRepository()
         searchInvoices()
@@ -68,38 +67,30 @@ class InvoiceViewmodel : ViewModel() {
         maxValueSlider: Double,
         status: HashMap<String, Boolean>
     ) {
-        if ((minDate == getString(
-                MyApplication.context,
-                R.string.diaMesAnno
-            ) && maxDate == getString(MyApplication.context, R.string.diaMesAnno)) ||
-            (minDate != getString(
-                MyApplication.context,
-                R.string.diaMesAnno
-            ) && maxDate != getString(MyApplication.context, R.string.diaMesAnno))
-        ) {
-            val filtro = Filters(maxDate, minDate, maxValueSlider, status)
-            _filterLiveData.postValue(filtro)
+        val filtro = Filters(minDate, maxDate, maxValueSlider, status)
+        Log.d("InvoiceViewmodel", "Aplicando filtros: $filtro")
+        _filterLiveData.postValue(filtro)
+        verificarFiltros()
+    }
 
-            // Aplicar los filtros y actualizar el LiveData con la lista filtrada
-            _filteredInvoicesLiveData.postValue(verificarFiltros())
+    fun verificarFiltros() {
+        Log.d("InvoiceViewmodel", "Verificando filtros")
+        val currentFilters = _filterLiveData.value
+        if (currentFilters != null) {
+            var filteredList = invoices.toList()
+            filteredList = verificarDatosFiltro(filteredList, currentFilters)
+            filteredList = verificarCheckBox(filteredList, currentFilters)
+            filteredList = verificarBalanceBar(filteredList, currentFilters)
+            Log.d("InvoiceViewmodel", "Lista filtrada: ${filteredList.size}")
+            _filteredInvoicesLiveData.postValue(filteredList)
         } else {
-            // Si alguna de las dos fechas está vacía, muestra un mensaje de error o realiza alguna acción apropiada.
+            Log.d("InvoiceViewmodel", "No se encontraron filtros para aplicar")
         }
     }
 
-    fun verificarFiltros(): List<InvoiceModelRoom>{
-        var filteredList = invoices.toList()
-        filteredList = verificarDatosFiltro(filteredList)
-        filteredList = verificarCheckBox(filteredList)
-        filteredList = verificarBalanceBar(filteredList)
-
-        return filteredList
-
-    }
-
-    private fun verificarDatosFiltro(filteredList: List<InvoiceModelRoom>): List<InvoiceModelRoom> {
-        val maxDate = filterLiveData.value?.maxDate
-        val minDate = filterLiveData.value?.minDate
+    private fun verificarDatosFiltro(filteredList: List<InvoiceModelRoom>, filters: Filters): List<InvoiceModelRoom> {
+        val maxDate = filters.maxDate
+        val minDate = filters.minDate
         val filteredListResult = ArrayList<InvoiceModelRoom>()
 
         if (!maxDate.isNullOrEmpty() && !minDate.isNullOrEmpty()) {
@@ -114,6 +105,8 @@ class InvoiceViewmodel : ViewModel() {
                 Log.d("Error", "Error al analizar las fechas: ${e.message}")
             }
 
+            Log.d("VerificarDatosFiltro", "minDateLocal: $minDateLocal, maxDateLocal: $maxDateLocal")
+
             for (factura in filteredList) {
                 var invoiceDate = Date()
                 try {
@@ -121,6 +114,8 @@ class InvoiceViewmodel : ViewModel() {
                 } catch (e: ParseException) {
                     Log.d("Error", "Error al analizar la fecha de la factura: ${e.message}")
                 }
+
+                Log.d("VerificarDatosFiltro", "invoiceDate: $invoiceDate")
 
                 if (invoiceDate.after(minDateLocal) && invoiceDate.before(maxDateLocal)) {
                     filteredListResult.add(factura)
@@ -131,20 +126,20 @@ class InvoiceViewmodel : ViewModel() {
         return filteredListResult
     }
 
-    private fun verificarCheckBox(
-        filteredInvoices: List<InvoiceModelRoom>?
-    ): List<InvoiceModelRoom>{
-        var filteredInvoicesCheckBox = ArrayList<InvoiceModelRoom>()
-        val status = filterLiveData.value?.status
+    private fun verificarCheckBox(filteredInvoices: List<InvoiceModelRoom>, filters: Filters): List<InvoiceModelRoom> {
+        val filteredInvoicesCheckBox = ArrayList<InvoiceModelRoom>()
+        val status = filters.status
         //Se obtienen los estados de las CheckBoxes.
-        val checkBoxPaid = status?.get(Constants.PAID_STRING) ?: false
-        val checkBoxCanceled = status?.get(Constants.CANCELED_STRING) ?: false
-        val checkBoxFixedPayment = status?.get(Constants.FIXED_PAYMENT_STRING) ?: false
-        val checkBoxPendingPayment = status?.get(Constants.PENDING_PAYMENT_STRING) ?: false
-        val checkBoxPaymentPlan = status?.get(Constants.PAYMENT_PLAN_STRING) ?: false
+        val checkBoxPaid = status[Constants.PAID_STRING] ?: false
+        val checkBoxCanceled = status[Constants.CANCELED_STRING] ?: false
+        val checkBoxFixedPayment = status[Constants.FIXED_PAYMENT_STRING] ?: false
+        val checkBoxPendingPayment = status[Constants.PENDING_PAYMENT_STRING] ?: false
+        val checkBoxPaymentPlan = status[Constants.PAYMENT_PLAN_STRING] ?: false
+
+        Log.d("VerificarCheckBox", "checkBoxPaid=$checkBoxPaid, checkBoxCanceled=$checkBoxCanceled, checkBoxFixedPayment=$checkBoxFixedPayment, checkBoxPendingPayment=$checkBoxPendingPayment, checkBoxPaymentPlan=$checkBoxPaymentPlan")
 
         if (checkBoxPaid || checkBoxCanceled || checkBoxFixedPayment || checkBoxPendingPayment || checkBoxPaymentPlan) {
-            for (invoice in filteredInvoices ?: emptyList()) {
+            for (invoice in filteredInvoices) {
                 val invoiceState = invoice.descEstado
                 val isPaid = invoiceState == "Pagada"
                 val isCanceled = invoiceState == "Anuladas"
@@ -152,23 +147,27 @@ class InvoiceViewmodel : ViewModel() {
                 val isPendingPayment = invoiceState == "Pendiente de pago"
                 val isPaymentPlan = invoiceState == "planPago"
 
+                Log.d("VerificarCheckBox", "invoiceState=$invoiceState, isPaid=$isPaid, isCanceled=$isCanceled, isFixedPayment=$isFixedPayment, isPendingPayment=$isPendingPayment, isPaymentPlan=$isPaymentPlan")
+
                 if ((isPaid && checkBoxPaid) || (isCanceled && checkBoxCanceled) || (isFixedPayment && checkBoxFixedPayment) || (isPendingPayment && checkBoxPendingPayment) || (isPaymentPlan && checkBoxPaymentPlan)) {
                     filteredInvoicesCheckBox.add(invoice)
                 }
             }
             return filteredInvoicesCheckBox
-
-    } else {
-        return filteredInvoices?: emptyList()
-
+        } else {
+            return filteredInvoices
         }
     }
 
-    private fun verificarBalanceBar(filteredList: List<InvoiceModelRoom>):List<InvoiceModelRoom>{
-        var filteredInvoicesBalanceBar = ArrayList<InvoiceModelRoom>()
-        val maxValueSlider = filterLiveData.value?.maxValorSlider
-        for (factura in filteredList){
-            if (factura.importeOrdenacion!! < maxValueSlider!!){
+    private fun verificarBalanceBar(filteredList: List<InvoiceModelRoom>, filters: Filters): List<InvoiceModelRoom> {
+        val filteredInvoicesBalanceBar = ArrayList<InvoiceModelRoom>()
+        val maxValueSlider = filters.maxValueSlider
+
+        Log.d("VerificarBalanceBar", "maxValueSlider=$maxValueSlider")
+
+        for (factura in filteredList) {
+            Log.d("VerificarBalanceBar", "factura.importeOrdenacion=${factura.importeOrdenacion}")
+            if (factura.importeOrdenacion < maxValueSlider) {
                 filteredInvoicesBalanceBar.add(factura)
             }
         }
@@ -177,14 +176,14 @@ class InvoiceViewmodel : ViewModel() {
 
     fun searchInvoices() {
         viewModelScope.launch {
-            _filteredInvoicesLiveData.postValue(repository.getEveryInvoiceFromRoom())
+            invoices = repository.getEveryInvoiceFromRoom()
+            _filteredInvoicesLiveData.postValue(invoices)
             try {
                 if (isInternetReady()) {
                     if (useRetrofitService) {
                         // Si hay conexión a Internet, usar Retrofit
                         repository.searchAndInsertInvoicesFromRetromock()
                         Log.d("Retromock", "Usando Retromock")
-
                     } else {
                         repository.searchAndInsertInvoicesFromAPI()
                         Log.d("Retrofit", "Usando Retrofit")
@@ -194,12 +193,11 @@ class InvoiceViewmodel : ViewModel() {
                     repository.searchAndInsertInvoicesFromRetromock()
                     Log.d("Retromock", "Usando Retromock")
                 }
-                _filteredInvoicesLiveData.postValue(repository.getEveryInvoiceFromRoom())
-
+                invoices = repository.getEveryInvoiceFromRoom()
+                _filteredInvoicesLiveData.postValue(invoices)
             } catch (e: Exception) {
                 Log.d("Error", e.printStackTrace().toString())
             }
         }
     }
-
 }

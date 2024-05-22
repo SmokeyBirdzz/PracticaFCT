@@ -1,9 +1,13 @@
 package com.smokey.practicafct.ui.model.adapter
 
-class Filters (
-    var maxDate : String,
-    var minDate : String,
-    var maxValorSlider : Double,
-    var status : Map<String,Boolean>
-)
+data class Filters(
+    val minDate: String,
+    val maxDate: String,
+    val maxValueSlider: Double,
+    val status: HashMap<String, Boolean>
+) {
+    override fun toString(): String {
+        return "Filters(minDate='$minDate', maxDate='$maxDate', maxValueSlider=$maxValueSlider, status=$status)"
+    }
+}
 
