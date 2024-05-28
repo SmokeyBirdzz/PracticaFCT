@@ -11,9 +11,11 @@
     <com.google.android.material.appbar.MaterialToolbar
         android:layout_width="match_parent"
         android:id="@+id/matToolbar"
+        android:layout_marginTop="16dp"
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="@drawable/ic_arrow_left"
         app:title="Atrás"
+        app:titleTextAppearance="@style/SmartSolarToolbarTitle"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

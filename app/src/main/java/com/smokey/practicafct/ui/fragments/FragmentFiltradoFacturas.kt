@@ -96,21 +96,26 @@ class FragmentFiltradoFacturas : Fragment() {
     }
 
     private fun loadFilters() {
-        if (viewModel.filterLiveData.value != null) {
-            binding.btnDesde.text = viewModel.filterLiveData.value?.minDate
-            binding.btnHasta.text = viewModel.filterLiveData.value?.maxDate
-            binding.slider.value = viewModel.filterLiveData.value?.maxValueSlider?.toFloat()!!
-            binding.slider.value.toInt()
-            binding.cBPagadas.isChecked =
-                viewModel.filterLiveData.value?.status?.get(Constants.PAID_STRING) ?: false
-            binding.cBAnuladas.isChecked =
-                viewModel.filterLiveData.value?.status?.get(Constants.CANCELED_STRING) ?: false
-            binding.cBCuotaFija.isChecked =
-                viewModel.filterLiveData.value?.status?.get(Constants.FIXED_PAYMENT_STRING) ?: false
-            binding.cBPendientesDePago.isChecked =
-                viewModel.filterLiveData.value?.status?.get(Constants.PENDING_PAYMENT_STRING) ?: false
-            binding.cBPendientesDePago.isChecked =
-                viewModel.filterLiveData.value?.status?.get(Constants.PAYMENT_PLAN_STRING) ?: false
+        sharedViewModel.minDate.value?.let {
+            binding.btnDesde.text = it
+        }
+        sharedViewModel.maxDate.value?.let {
+            binding.btnHasta.text = it
+        }
+        sharedViewModel.maxValueSlider.value?.let {
+            binding.slider.value = it.toFloat()
+            textViewSlider.text = it.toInt().toString()
+        } ?: run {
+            // Valor predeterminado si no hay filtros guardados
+            binding.slider.value = 300f
+            textViewSlider.text = "300"
+        }
+        sharedViewModel.status.value?.let {
+            binding.cBPagadas.isChecked = it[Constants.PAID_STRING] ?: false
+            binding.cBAnuladas.isChecked = it[Constants.CANCELED_STRING] ?: false
+            binding.cBCuotaFija.isChecked = it[Constants.FIXED_PAYMENT_STRING] ?: false
+            binding.cBPendientesDePago.isChecked = it[Constants.PENDING_PAYMENT_STRING] ?: false
+            binding.cBPlanDePago.isChecked = it[Constants.PAYMENT_PLAN_STRING] ?: false
         }
     }
 
@@ -154,7 +159,7 @@ class FragmentFiltradoFacturas : Fragment() {
 
         slider.valueFrom = 0f
         slider.valueTo = 300f
-        slider.value = 0f
+        slider.value = 300f
 
         slider.addOnChangeListener { slider, _, _ ->
             val value = slider.value.toInt()
@@ -165,7 +170,7 @@ class FragmentFiltradoFacturas : Fragment() {
 
     private fun initApplyFiltersButton() {
         binding.btnAplicar.setOnClickListener {
-            val maxValueSlider = binding.textViewSlider.text.toString().toDouble()
+            val maxValueSlider = if (binding.textViewSlider.text.toString().toDouble() == 0.0) 300.0 else binding.textViewSlider.text.toString().toDouble()
             val status = hashMapOf(
                 Constants.PAID_STRING to paid.isChecked,
                 Constants.CANCELED_STRING to canceled.isChecked,
@@ -192,7 +197,8 @@ class FragmentFiltradoFacturas : Fragment() {
     private fun resetFilters() {
         binding.btnDesde.text = getString(R.string.diaMesAnno)
         binding.btnHasta.text = getString(R.string.diaMesAnno)
-        binding.slider.value = viewModel.maxAmount.toFloat() + 1
+        binding.slider.value = 300f
+        textViewSlider.text = "300"
         binding.cBPagadas.isChecked = false
         binding.cBAnuladas.isChecked = false
         binding.cBCuotaFija.isChecked = false

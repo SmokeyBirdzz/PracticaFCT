@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "805164878823",
+    "project_id": "practicafct-c8017",
+    "storage_bucket": "practicafct-c8017.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:805164878823:android:2783d02e9408a878374b42",
+        "android_client_info": {
+          "package_name": "com.smokey.practicafct"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0xQz-3DQc3Ml75Cu4AkoOfTWZXoWFIVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

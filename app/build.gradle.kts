@@ -2,7 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.kapt")
-
+    id("com.google.gms.google-services")
 
 }
 
@@ -44,6 +44,7 @@ android {
 
 dependencies {
 
+    implementation (platform("com.google.firebase:firebase-bom:31.0.2"))
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
     kapt(libs.androidx.room.compiler)
@@ -63,4 +64,6 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.retromock)
+    implementation ("com.google.firebase:firebase-auth")
+
 }

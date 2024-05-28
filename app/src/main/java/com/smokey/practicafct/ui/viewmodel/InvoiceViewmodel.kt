@@ -165,13 +165,16 @@ class InvoiceViewmodel : ViewModel() {
 
         Log.d("VerificarBalanceBar", "maxValueSlider=$maxValueSlider")
 
-        for (factura in filteredList) {
-            Log.d("VerificarBalanceBar", "factura.importeOrdenacion=${factura.importeOrdenacion}")
-            if (factura.importeOrdenacion < maxValueSlider) {
-                filteredInvoicesBalanceBar.add(factura)
+        if (maxValueSlider > 0) {  // Ignorar el filtro si maxValueSlider es 0
+            for (factura in filteredList) {
+                Log.d("VerificarBalanceBar", "factura.importeOrdenacion=${factura.importeOrdenacion}")
+                if (factura.importeOrdenacion < maxValueSlider) {
+                    filteredInvoicesBalanceBar.add(factura)
+                }
             }
+            return filteredInvoicesBalanceBar
         }
-        return filteredInvoicesBalanceBar
+        return filteredList
     }
 
     fun searchInvoices() {

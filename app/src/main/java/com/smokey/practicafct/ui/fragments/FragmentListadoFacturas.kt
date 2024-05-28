@@ -91,24 +91,4 @@ class FragmentListadoFacturas : Fragment() {
         }
     }
 
-    private fun applyFilters(filters: Filters) {
-        val dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
-        val filteredList = originalList.filter { factura ->
-            val facturaDate = LocalDate.parse(factura.fecha, dateFormatter)
-            val minDate = LocalDate.parse(filters.minDate, dateFormatter)
-            val maxDate = LocalDate.parse(filters.maxDate, dateFormatter)
-
-            val matchesEstado = filters.status.entries.any { entry ->
-                entry.value && factura.descEstado == entry.key
-            }
-
-            val result = factura.importeOrdenacion in 0.0..filters.maxValueSlider &&
-                    facturaDate in minDate..maxDate &&
-                    matchesEstado
-
-            Log.d("Filtros", "Factura: ${factura.descEstado}, Resultado: $result")
-            result
-        }
-        facturasAdapter.updateFacturas(filteredList)
-    }
 }
