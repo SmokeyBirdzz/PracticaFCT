@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<defaultsMap>
+    <entry>
+        <key>isDarkTheme</key>
+        <value>false</value>
+    </entry>
+    <entry>
+        <key>isPractica1Visible</key>
+        <value>true</value>
+    </entry>
+</defaultsMap>

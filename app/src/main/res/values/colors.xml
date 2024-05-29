@@ -10,4 +10,12 @@
     <color name="red">#E64949</color>
     <color name="ic_filter_button_background">#008BC34A</color>
     <color name="my_light_primary">#95bb4e</color>
+    <color name="my_dark_primary">#76953E</color>
+    <color name="my_accent_primary">#BEDF83</color>
+
+    <color name="my_darklight_primary">#5D7531</color>
+    <color name="my_darkaccent_primary">#6E7C54</color>
+    <color name="my_darkdark_primary">#3F5021</color>
+    <color name="text_light">#FF000000</color>
+    <color name="text_dark">#323232</color>
 </resources>

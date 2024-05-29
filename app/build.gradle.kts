@@ -65,5 +65,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.retromock)
     implementation ("com.google.firebase:firebase-auth")
+    implementation ("com.google.firebase:firebase-config")
 
 }
