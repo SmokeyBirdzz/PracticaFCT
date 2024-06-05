@@ -27,7 +27,7 @@
                 android:id="@+id/tvConsumo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Consumo"
+                android:text="@string/consumo"
                 android:textColor="@color/green" />
 
             <androidx.appcompat.widget.SwitchCompat
@@ -36,7 +36,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:checked="false"
-                android:text="Retromock " />
+                android:text="@string/retromock" />
 
             <ImageButton
                 android:id="@+id/toolbarImageButton"
@@ -55,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="16dp"
-        android:text="Facturas"
+        android:text="@string/facturas"
         android:textSize="32dp"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@+id/cl_listado_facturas_coordinator_toolbar" />

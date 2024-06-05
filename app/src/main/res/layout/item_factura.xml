@@ -11,8 +11,8 @@
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="31 Ago 2020"
-        android:textSize="25dp"
+        android:text="@string/_31_ago_2020"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -21,8 +21,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="16dp"
-        android:textSize="25dp"
-        android:text="Pendiente de pago"
+        android:textSize="25sp"
+        android:text="@string/pendiente_de_pago"
         android:textColor="@color/red"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvFecha" />
@@ -44,8 +44,8 @@
         android:id="@+id/tvMoney"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="54,56 €"
-        android:textSize="25dp"
+        android:text="@string/_54_56"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/ibFacturas"
         app:layout_constraintTop_toTopOf="parent" />

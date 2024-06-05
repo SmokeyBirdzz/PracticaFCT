@@ -5,14 +5,14 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayout
-import com.smokey.practicafct.MyApplication
-import com.smokey.practicafct.MyApplication.Companion.context
 import com.smokey.practicafct.R
 import com.smokey.practicafct.databinding.PantallaSmartSolarBinding
 import com.smokey.practicafct.ui.fragments.SmartSolarDetallesFragment
 import com.smokey.practicafct.ui.fragments.SmartSolarEnergiaFragment
 import com.smokey.practicafct.ui.fragments.SmartSolarMiInstalacionFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PantallaSmartSolar : AppCompatActivity() {
 
     private lateinit var binding: PantallaSmartSolarBinding

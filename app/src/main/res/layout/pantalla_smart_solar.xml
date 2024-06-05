@@ -41,7 +41,7 @@
             android:layout_marginTop="10dp"
             android:textSize="26sp"
             android:textStyle="bold"
-            android:text="Smart Solar"
+            android:text="@string/smart_solar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
         </TextView>
@@ -61,19 +61,19 @@
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mi instalación"
+                android:text="@string/mi_instalaci_n"
                 >
             </com.google.android.material.tabs.TabItem>
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Energía"
+                android:text="@string/energ_a"
                 >
             </com.google.android.material.tabs.TabItem>
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Detalles"
+                android:text="@string/detalles"
                 >
             </com.google.android.material.tabs.TabItem>
 

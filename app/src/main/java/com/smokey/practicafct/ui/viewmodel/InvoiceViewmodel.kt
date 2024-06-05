@@ -4,27 +4,29 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
-import androidx.core.content.ContextCompat.getString
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.smokey.practicafct.MyApplication
-import com.smokey.practicafct.R
+import com.smokey.practicafct.ContextApplication
 import com.smokey.practicafct.constants.Constants
 import com.smokey.practicafct.data.InvoicesRepository
 import com.smokey.practicafct.data.room.InvoiceModelRoom
 import com.smokey.practicafct.ui.model.adapter.Filters
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import javax.inject.Inject
 
-class InvoiceViewmodel : ViewModel() {
+@HiltViewModel
+class InvoiceViewmodel @Inject constructor(
+    private var repository: InvoicesRepository
+): ViewModel() {
 
-    private lateinit var repository: InvoicesRepository
     private val _filteredInvoicesLiveData = MutableLiveData<List<InvoiceModelRoom>>()
     var useRetrofitService = false
     private var invoices: List<InvoiceModelRoom> = emptyList()
@@ -50,7 +52,7 @@ class InvoiceViewmodel : ViewModel() {
 
     private fun isInternetReady(): Boolean {
         val gestorDeConectividad =
-            MyApplication.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            ContextApplication.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val network = gestorDeConectividad.activeNetwork
         val capabilities = gestorDeConectividad.getNetworkCapabilities(network)
         val isReady = capabilities != null && (
