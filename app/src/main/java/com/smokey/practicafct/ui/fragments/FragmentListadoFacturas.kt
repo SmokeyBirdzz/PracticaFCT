@@ -1,4 +1,5 @@
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -23,6 +24,8 @@ import com.smokey.practicafct.core.network.toDateString
 import com.smokey.practicafct.data.room.InvoiceModelRoom
 import com.smokey.practicafct.databinding.FragmentFiltradoFacturasBinding
 import com.smokey.practicafct.databinding.FragmentListadoFacturasBinding
+import com.smokey.practicafct.ui.activities.ListadoFacturas
+import com.smokey.practicafct.ui.activities.MainActivity
 import com.smokey.practicafct.ui.model.adapter.FacturasAdapter
 import com.smokey.practicafct.ui.model.adapter.Filters
 import com.smokey.practicafct.ui.viewmodel.InvoiceViewmodel
@@ -54,6 +57,10 @@ class FragmentListadoFacturas : Fragment() {
         toolbarImageButton.setOnClickListener {
             findNavController().navigate(R.id.action_fragmentListadoFacturas_to_fragmentFiltradoFacturas)
         }
+        val btnArrowLeft: ImageButton = view.findViewById(R.id.btnArrowLeft)
+        btnArrowLeft.setOnClickListener {
+            requireActivity().finish()
+        }
 
         // Configurar RecyclerView
         rvFacturas = binding.rvFacturas
@@ -77,7 +84,7 @@ class FragmentListadoFacturas : Fragment() {
         }
 
         viewmodel.filterLiveData.observe(viewLifecycleOwner) { filter ->
-            if (filter != null) {
+            filter?.let {
                 viewmodel.verificarFiltros()
             }
         }

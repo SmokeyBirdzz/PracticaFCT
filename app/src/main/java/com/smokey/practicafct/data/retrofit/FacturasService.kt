@@ -5,9 +5,8 @@ import com.smokey.practicafct.core.retrofit.RetrofitHelper
 import com.smokey.practicafct.core.retromock.RetroMockHelper
 import com.smokey.practicafct.data.retrofit.network.Detail
 import com.smokey.practicafct.data.room.InvoiceModelRoom
-import javax.inject.Inject
 
-class FacturasService @Inject constructor() {
+class FacturasService {
 
     private val retrofitBuilder = RetrofitHelper.getRetrofit()
     private val retromock = RetroMockHelper.getRetromock(retrofitBuilder)

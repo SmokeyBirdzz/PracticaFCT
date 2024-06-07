@@ -9,9 +9,7 @@ import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.smokey.practicafct.R
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class WebViewsActivity : AppCompatActivity() {
 
     private lateinit var btnAbrirNavegador: Button

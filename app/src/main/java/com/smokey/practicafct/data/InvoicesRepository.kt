@@ -5,11 +5,8 @@ import com.smokey.practicafct.data.retrofit.network.Detail
 import com.smokey.practicafct.data.room.DetailsSmartSolarRoom
 import com.smokey.practicafct.data.room.InvoiceDatabase
 import com.smokey.practicafct.data.room.InvoiceModelRoom
-import javax.inject.Inject
 
-class InvoicesRepository @Inject constructor(
-    private val  facturasService: FacturasService
-) {
+class InvoicesRepository {
     val api = FacturasService()
     val invoiceDao = InvoiceDatabase.getAppDBInstance().getInvoiceDao()
     val detailsSmartSolarDAO = InvoiceDatabase.getAppDBInstance().getDetailsSmartSolarDAO()

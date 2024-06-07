@@ -1,6 +1,6 @@
 package com.smokey.practicafct.ui.model.adapter
 
-import javax.inject.Inject
+
 
 data class Filters (
     val minDate: String,

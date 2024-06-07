@@ -1,5 +1,6 @@
 package com.smokey.practicafct.ui.activities
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +11,7 @@ import com.smokey.practicafct.databinding.PantallaSmartSolarBinding
 import com.smokey.practicafct.ui.fragments.SmartSolarDetallesFragment
 import com.smokey.practicafct.ui.fragments.SmartSolarEnergiaFragment
 import com.smokey.practicafct.ui.fragments.SmartSolarMiInstalacionFragment
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class PantallaSmartSolar : AppCompatActivity() {
 
     private lateinit var binding: PantallaSmartSolarBinding
@@ -23,6 +22,11 @@ class PantallaSmartSolar : AppCompatActivity() {
         binding = PantallaSmartSolarBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setOnClickListener()
+
+        binding.matToolbar.setNavigationOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.tableLayoutSmart.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {

@@ -14,9 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.smokey.practicafct.R
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var imArrow: ImageButton
@@ -131,11 +129,13 @@ class MainActivity : AppCompatActivity() {
     private fun navigateToPracticaUno() {
         val intent = Intent(this, ListadoFacturas::class.java)
         startActivity(intent)
+
     }
 
     private fun navigateToPracticaDos() {
         val intent = Intent(this, PantallaSmartSolar::class.java)
         startActivity(intent)
+
     }
 
     private fun clearRememberedUser() {

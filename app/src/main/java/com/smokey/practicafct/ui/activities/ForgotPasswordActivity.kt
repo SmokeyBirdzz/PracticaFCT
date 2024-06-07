@@ -11,9 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.smokey.practicafct.R
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class ForgotPasswordActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth

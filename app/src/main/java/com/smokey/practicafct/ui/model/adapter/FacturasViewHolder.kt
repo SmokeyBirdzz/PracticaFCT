@@ -31,6 +31,12 @@ class FacturasViewHolder(view: View):RecyclerView.ViewHolder(view) {
 
         binding.tvFecha.text = facturasModel.fecha
         binding.tvPendiente.text = facturasModel.descEstado
+        if (facturasModel.descEstado == "Pagada"){
+            binding.tvPendiente.visibility= View.GONE
+        }else{
+            binding.tvPendiente.visibility= View.VISIBLE
+
+        }
         binding.tvMoney.text = "${facturasModel.importeOrdenacion} €"
         //Llamamos al método del pop-up en el caso de que el usuario clicke en la celda
         binding.clRecyclerFacturas.setOnClickListener {

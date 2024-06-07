@@ -11,24 +11,21 @@ import androidx.lifecycle.viewModelScope
 import com.smokey.practicafct.ContextApplication
 import com.smokey.practicafct.constants.Constants
 import com.smokey.practicafct.data.InvoicesRepository
+import com.smokey.practicafct.data.retrofit.FacturasService
 import com.smokey.practicafct.data.room.InvoiceModelRoom
 import com.smokey.practicafct.ui.model.adapter.Filters
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import javax.inject.Inject
 
-@HiltViewModel
-class InvoiceViewmodel @Inject constructor(
-    private var repository: InvoicesRepository
-): ViewModel() {
+class InvoiceViewmodel : ViewModel() {
 
     private val _filteredInvoicesLiveData = MutableLiveData<List<InvoiceModelRoom>>()
     var useRetrofitService = false
+    private lateinit var repository : InvoicesRepository
     private var invoices: List<InvoiceModelRoom> = emptyList()
     val filteredInvoicesLiveData: LiveData<List<InvoiceModelRoom>>
         get() = _filteredInvoicesLiveData
@@ -200,6 +197,7 @@ class InvoiceViewmodel @Inject constructor(
                 }
                 invoices = repository.getEveryInvoiceFromRoom()
                 _filteredInvoicesLiveData.postValue(invoices)
+                verificarFiltros()
             } catch (e: Exception) {
                 Log.d("Error", e.printStackTrace().toString())
             }

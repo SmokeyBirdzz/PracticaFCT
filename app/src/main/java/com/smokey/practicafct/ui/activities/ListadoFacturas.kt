@@ -5,9 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.smokey.practicafct.R
 
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class ListadoFacturas : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
