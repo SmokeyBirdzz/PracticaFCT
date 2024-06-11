@@ -1,7 +1,9 @@
 package com.smokey.practicafct.data
 
+import com.smokey.practicafct.core.network.KtorClient
 import com.smokey.practicafct.data.retrofit.FacturasService
 import com.smokey.practicafct.data.retrofit.network.Detail
+import com.smokey.practicafct.data.retrofit.response.Invoices
 import com.smokey.practicafct.data.room.DetailsSmartSolarRoom
 import com.smokey.practicafct.data.room.InvoiceDatabase
 import com.smokey.practicafct.data.room.InvoiceModelRoom
@@ -10,6 +12,7 @@ class InvoicesRepository {
     val api = FacturasService()
     val invoiceDao = InvoiceDatabase.getAppDBInstance().getInvoiceDao()
     val detailsSmartSolarDAO = InvoiceDatabase.getAppDBInstance().getDetailsSmartSolarDAO()
+    val ktorClient = KtorClient
 
     suspend fun getDetailsSmartSolarFromRetromMock(): Detail? {
         return api.getDetailsSmartSolarFromRetromock()
@@ -35,6 +38,9 @@ class InvoicesRepository {
         return api.getInvoices()
     }
 
+    private suspend fun getInvoicesFromKtor(): List<InvoiceModelRoom> {
+        return KtorClient.getInvoices()
+    }
 
     suspend fun addInvoicesFromRoom(invoices: List<InvoiceModelRoom>) {
         invoiceDao.insertInvoicesRoom(invoices)
@@ -79,4 +85,16 @@ class InvoicesRepository {
         addInvoicesFromRoom(invoicesRoom)
     }
 
+    suspend fun searchAndInsertInvoicesFromKtor() {
+        invoiceDao.deleteEveryInvoicesFromRoom() // Eliminar todas las facturas existentes
+        val invoicesFromKtor = ktorClient.getInvoices()
+        val invoicesRoom = invoicesFromKtor.map { invoice ->
+            InvoiceModelRoom(
+                descEstado = invoice.descEstado,
+                importeOrdenacion = invoice.importeOrdenacion,
+                fecha = invoice.fecha
+            )
+        }
+        addInvoicesFromRoom(invoicesRoom)
+    }
 }

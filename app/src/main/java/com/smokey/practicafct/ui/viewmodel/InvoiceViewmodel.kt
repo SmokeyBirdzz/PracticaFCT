@@ -4,14 +4,15 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.smokey.practicafct.ContextApplication
+import com.smokey.practicafct.ContextApplication.Companion.context
 import com.smokey.practicafct.constants.Constants
 import com.smokey.practicafct.data.InvoicesRepository
-import com.smokey.practicafct.data.retrofit.FacturasService
 import com.smokey.practicafct.data.room.InvoiceModelRoom
 import com.smokey.practicafct.ui.model.adapter.Filters
 import kotlinx.coroutines.launch
@@ -25,6 +26,7 @@ class InvoiceViewmodel : ViewModel() {
 
     private val _filteredInvoicesLiveData = MutableLiveData<List<InvoiceModelRoom>>()
     var useRetrofitService = false
+    var useKtorService = false
     private lateinit var repository : InvoicesRepository
     private var invoices: List<InvoiceModelRoom> = emptyList()
     val filteredInvoicesLiveData: LiveData<List<InvoiceModelRoom>>
@@ -182,13 +184,22 @@ class InvoiceViewmodel : ViewModel() {
             _filteredInvoicesLiveData.postValue(invoices)
             try {
                 if (isInternetReady()) {
-                    if (useRetrofitService) {
-                        // Si hay conexión a Internet, usar Retrofit
-                        repository.searchAndInsertInvoicesFromRetromock()
-                        Log.d("Retromock", "Usando Retromock")
-                    } else {
-                        repository.searchAndInsertInvoicesFromAPI()
-                        Log.d("Retrofit", "Usando Retrofit")
+                    when {
+                        useRetrofitService -> {
+                            repository.searchAndInsertInvoicesFromAPI()
+                            Log.d("Retrofit", "Usando Retrofit")
+                            Toast.makeText(context, "Cargado desde Retrofit", Toast.LENGTH_SHORT).show()
+                        }
+                        useKtorService -> {
+                            repository.searchAndInsertInvoicesFromKtor()
+                            Log.d("Ktor", "Usando Ktor")
+                            Toast.makeText(context, "Cargado desde Ktor", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {
+                            repository.searchAndInsertInvoicesFromRetromock()
+                            Log.d("Retromock", "Usando Retromock")
+                            Toast.makeText(context, "Cargado desde Retromock", Toast.LENGTH_SHORT).show()
+                        }
                     }
                 } else {
                     // Si no hay conexión a Internet, usar Retromock

@@ -1,7 +1,9 @@
 package com.smokey.practicafct.data.retrofit.response
 
 import com.smokey.practicafct.data.room.InvoiceModelRoom
+import kotlinx.serialization.Serializable
 
+@Serializable
 class InvoicesResponse (
 //Este valor numFacturas está contenido en el Json y indica el número de objetos "facturas"
     //que contiene el Json

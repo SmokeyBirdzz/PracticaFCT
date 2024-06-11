@@ -83,6 +83,13 @@ class FragmentListadoFacturas : Fragment() {
             viewmodel.searchInvoices()
         }
 
+        val switchKtor = view.findViewById<SwitchCompat>(R.id.btnKtor)
+        switchKtor.setOnCheckedChangeListener { _, isChecked ->
+            viewmodel.useKtorService = isChecked
+            viewmodel.useRetrofitService = false
+            viewmodel.searchInvoices()
+        }
+
         viewmodel.filterLiveData.observe(viewLifecycleOwner) { filter ->
             filter?.let {
                 viewmodel.verificarFiltros()

@@ -41,6 +41,7 @@
     <string name="eliminar_filtros">Eliminar filtros</string>
     <string name="consumo">Consumo</string>
     <string name="retromock">Retromock</string>
+    <string name="retrofit">Retrofit</string>
     <string name="facturas">Facturas</string>
     <string name="cau">CAU (Código Autoconsumo)</string>
     <string name="estado_solicitud">Estado solicitud alta autoconsumidor</string>

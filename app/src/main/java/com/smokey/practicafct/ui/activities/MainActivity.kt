@@ -17,11 +17,10 @@ import com.smokey.practicafct.R
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var imArrow: ImageButton
-    private lateinit var imArrow2: ImageButton
-    private lateinit var imArrow3: ImageButton
     private lateinit var logoutButton: ImageButton
     private lateinit var clPractica1: ConstraintLayout
+    private lateinit var clPractica2: ConstraintLayout
+    private lateinit var clPractica3: ConstraintLayout
     private lateinit var auth: FirebaseAuth
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var remoteConfig: FirebaseRemoteConfig
@@ -95,21 +94,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initComponents() {
-        imArrow = findViewById(R.id.imArrow)
-        imArrow2 = findViewById(R.id.imArrow2)
-        imArrow3 = findViewById(R.id.imArrow3)
         logoutButton = findViewById(R.id.btnLogout)
         clPractica1 = findViewById(R.id.clPractica1)
+        clPractica2 = findViewById(R.id.clPractica2)
+        clPractica3 = findViewById(R.id.clPractica3)
     }
 
     private fun initListeners() {
-        imArrow.setOnClickListener {
+        clPractica1.setOnClickListener {
             navigateToPracticaUno()
         }
-        imArrow2.setOnClickListener {
+        clPractica2.setOnClickListener {
             navigateToPracticaDos()
         }
-        imArrow3.setOnClickListener {
+        clPractica3.setOnClickListener {
             navigateToWebViewsActivity()
         }
         logoutButton.setOnClickListener {
