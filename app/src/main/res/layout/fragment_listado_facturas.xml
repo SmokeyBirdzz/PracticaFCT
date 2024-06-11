@@ -26,6 +26,7 @@
 
             <TextView
                 android:id="@+id/tvConsumo"
+                android:layout_marginEnd="6dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/consumo"
@@ -38,6 +39,13 @@
                 android:layout_gravity="center"
                 android:checked="false"
                 android:text="@string/retromock" />
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:id="@+id/btnKtor"
+                android:layout_marginHorizontal="8dp"
+                android:layout_height="match_parent"
+                android:text="Ktor"
+                />
 
             <ImageButton
                 android:id="@+id/toolbarImageButton"
