@@ -23,7 +23,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="64dp"
         android:contentInsetStart="16dp"
-        android:title="@string/filtrar_facturas"
+        android:title="@string/fragment_filtrado_filtrar_facturas"
         android:titleTextAppearance="@style/BoldLargeTitleTextAppearance"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="15dp"
-        android:text="@string/con_fecha"
+        android:text="@string/fragment_filtrado_con_fecha"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -63,7 +63,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="6dp"
                 android:paddingLeft="16dp"
-                android:text="@string/desde"
+                android:text="@string/fragment_filtrado_desde"
                 android:textColor="@color/strongGrey"
 
                 />
@@ -75,7 +75,7 @@
                 android:layout_height="40dp"
                 android:layout_marginLeft="12dp"
                 android:paddingHorizontal="18dp"
-                android:text="@string/diaMesAnno"
+                android:text="@string/fragment_filtrado_diaMesAnno"
                 android:textAllCaps="false" />
 
         </LinearLayout>
@@ -93,7 +93,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="6dp"
                 android:paddingLeft="5dp"
-                android:text="@string/hasta"
+                android:text="@string/fragment_filtrado_hasta"
                 android:textColor="@color/strongGrey"
 
                 />
@@ -104,7 +104,7 @@
                 android:layout_width="160dp"
                 android:layout_height="40dp"
                 android:paddingHorizontal="18dp"
-                android:text="@string/diaMesAnno"
+                android:text="@string/fragment_filtrado_diaMesAnno"
                 android:textAllCaps="false" />
 
         </LinearLayout>
@@ -125,7 +125,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:paddingLeft="16dp"
-        android:text="@string/por_un_importe"
+        android:text="@string/fragment_filtrado_por_un_importe"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -139,7 +139,7 @@
         android:layout_marginTop="6dp"
         android:layout_marginBottom="6dp"
         android:gravity="center"
-        android:text="@string/_0"
+        android:text="@string/fragment_filtrado_0"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPorImporte" />
@@ -149,7 +149,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="@string/_0_euro"
+        android:text="@string/fragment_filtrado_0_euro"
         app:layout_constraintBottom_toTopOf="@+id/slider"
         app:layout_constraintStart_toStartOf="@+id/slider" />
 
@@ -158,7 +158,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:text="@string/_0_euro"
+        android:text="@string/fragment_filtrado_0_euro"
         app:layout_constraintBottom_toTopOf="@+id/slider"
         app:layout_constraintEnd_toEndOf="@+id/slider" />
 
@@ -188,7 +188,7 @@
 
         android:layout_marginTop="16dp"
         android:paddingLeft="16dp"
-        android:text="@string/por_estado"
+        android:text="@string/fragment_filtrado_por_estado"
         android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -201,7 +201,7 @@
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
-        android:text="@string/pagadas"
+        android:text="@string/fragment_filtrado_pagadas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewPorEstado"
@@ -213,7 +213,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
-        android:text="@string/anuladas"
+        android:text="@string/fragment_filtrado_anuladas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cBPagadas"
@@ -225,7 +225,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
-        android:text="@string/cuota_fija"
+        android:text="@string/fragment_filtrado_cuota_fija"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cBAnuladas"
@@ -237,7 +237,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
-        android:text="@string/pendientes_de_pago"
+        android:text="@string/fragment_filtrado_pendientes_de_pago"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cBCuotaFija"
@@ -249,7 +249,7 @@
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginStart="10dp"
-        android:text="@string/plan_de_pago"
+        android:text="@string/fragment_filtrado_plan_de_pago"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cBPendientesDePago"
@@ -264,7 +264,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="32dp"
         android:layout_height="wrap_content"
-        android:text="@string/aplicar"
+        android:text="@string/fragment_filtrado_aplicar"
         />
 
     <Button
@@ -275,7 +275,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp"
         android:layout_height="wrap_content"
-        android:text="@string/eliminar_filtros"
+        android:text="@string/fragment_filtrado_eliminar_filtros"
         android:backgroundTint="@color/grey"
         />
 

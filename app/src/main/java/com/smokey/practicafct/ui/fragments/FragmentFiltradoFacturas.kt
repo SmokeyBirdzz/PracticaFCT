@@ -25,7 +25,6 @@ import com.smokey.practicafct.ui.viewmodel.InvoiceViewmodel
 import com.smokey.practicafct.ui.viewmodel.SharedViewModel
 import java.time.LocalDate
 import java.util.Calendar
-import java.util.Locale
 
 class FragmentFiltradoFacturas : Fragment() {
 
@@ -179,11 +178,11 @@ class FragmentFiltradoFacturas : Fragment() {
                 Constants.PAYMENT_PLAN_STRING to paymentPlan.isChecked
             )
 
-            val minDate: String = if (binding.btnDesde.text == getString(R.string.diaMesAnno))
+            val minDate: String = if (binding.btnDesde.text == getString(R.string.fragment_filtrado_diaMesAnno))
                 LocalDate.ofEpochDay(0).toDateString("dd/MM/yyyy")
             else binding.btnDesde.text.toString()
             val maxDate: String =
-                if (binding.btnHasta.text == getString(R.string.diaMesAnno)) LocalDate.now().toDateString("dd/MM/yyyy") else binding.btnHasta.text.toString()
+                if (binding.btnHasta.text == getString(R.string.fragment_filtrado_diaMesAnno)) LocalDate.now().toDateString("dd/MM/yyyy") else binding.btnHasta.text.toString()
 
             Log.d("Filtros", "minDate: $minDate, maxDate: $maxDate, maxValueSlider: $maxValueSlider")
             Log.d("Filtros", "status: $status")
@@ -195,8 +194,8 @@ class FragmentFiltradoFacturas : Fragment() {
     }
 
     private fun resetFilters() {
-        binding.btnDesde.text = getString(R.string.diaMesAnno)
-        binding.btnHasta.text = getString(R.string.diaMesAnno)
+        binding.btnDesde.text = getString(R.string.fragment_filtrado_diaMesAnno)
+        binding.btnHasta.text = getString(R.string.fragment_filtrado_diaMesAnno)
         binding.slider.value = 300f
         textViewSlider.text = "300"
         binding.cBPagadas.isChecked = false

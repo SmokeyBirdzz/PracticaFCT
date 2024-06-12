@@ -11,7 +11,7 @@
     android:layout_marginTop="10dp"
     android:layout_height="wrap_content"
     android:id="@+id/dialogTitle"
-    android:text="@string/estado_solicitud_autoconsumo"
+    android:text="@string/dialog_tooltip_estado_solicitud_autoconsumo"
     android:textStyle="bold"
     android:textSize="18sp"
     android:layout_gravity="center"
@@ -23,7 +23,7 @@
         android:id="@+id/dialogMessage"
         android:layout_marginHorizontal="6dp"
         android:layout_marginVertical="20dp"
-        android:text="@string/el_tiempo"
+        android:text="@string/dialog_tooltip_el_tiempo"
         android:textSize="16sp"
         android:layout_gravity="center"
         />
@@ -31,7 +31,7 @@
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:id="@+id/dialogButton"
-        android:text="@string/aceptar"
+        android:text="@string/dialog_tooltip_aceptar"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
         />

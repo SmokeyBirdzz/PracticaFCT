@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:textSize="16sp"
-        android:text="@string/aqui_tienes"
+        android:text="@string/fragment_smart_solar_aqui_tienes"
     />
 
     <TextView
@@ -25,7 +25,7 @@
         android:layout_marginTop="35dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewInstalacion"
-        android:text="@string/autoconsumo"
+        android:text="@string/fragment_smart_solar_autoconsumo"
         android:textColor="@color/grey"
         android:id="@+id/textViewInstalacionCuerpo"
         />
@@ -36,7 +36,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/textViewInstalacionCuerpo"
         app:layout_constraintTop_toTopOf="@+id/textViewInstalacionCuerpo"
-        android:text="@string/_92"
+        android:text="@string/fragment_smart_solar_92"
         app:layout_constraintBottom_toBottomOf="@+id/textViewInstalacionCuerpo"
         />
     <ImageView
